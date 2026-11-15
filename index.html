@@ -287,7 +287,7 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
 
 <header class="top"><div class="wrap">
   <a class="brand" href="#inicio" aria-label="Pidemás Delivery"><b>PIDEMÁS</b><i>DELIVERY</i></a>
-  <a class="btn" href="https://pidemasdelivery.github.io/inscripcion/">Afiliar mi negocio</a>
+  <a class="btn pdAfiliar" href="https://pidemasdelivery.github.io/inscripcion/">Afiliar mi negocio</a>
 </div></header>
 
 <section class="hero" id="inicio"><div class="wrap">
@@ -376,7 +376,7 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
   <div class="cta">
     <div><span class="kick" style="color:#E9DED6">Únete a Pidemás</span><h2 style="margin-top:10px">Tu negocio puede estar recibiendo pedidos esta semana</h2><p>Llena el formulario de afiliación o escríbenos por WhatsApp y te ayudamos a armar tu carta.</p></div>
     <div class="ctas">
-      <a class="btn" href="https://pidemasdelivery.github.io/inscripcion/">Afiliar mi negocio</a>
+      <a class="btn pdAfiliar" href="https://pidemasdelivery.github.io/inscripcion/">Afiliar mi negocio</a>
       <a class="btn wa" id="waCta" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/></svg>Escribir por WhatsApp</a>
     </div>
   </div>
@@ -758,6 +758,15 @@ function sync(){panel();tienda()}
 pintarRubros();guia(0);tienda();panel();
 })();
 
+</script>
+<script id="pd-afiliar-js">
+/* En Android abre el formulario en Chrome, para que la app de la Tienda instalada no capture el link */
+(function(){
+  var U='https://pidemasdelivery.github.io/inscripcion/';
+  if(!/Android/i.test(navigator.userAgent))return;
+  var I='intent://pidemasdelivery.github.io/inscripcion/#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(U)+';end';
+  document.querySelectorAll('a.pdAfiliar').forEach(function(a){a.href=I;});
+})();
 </script>
 </body>
 </html>
