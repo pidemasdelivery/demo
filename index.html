@@ -711,7 +711,7 @@ const GRUPOS=[
   ['Servicios',['Lavanderías']]];
 function pintarRubros(){
   const r=R(),t=tono(r?r.ic:'tienda');
-  $('rubros').innerHTML='<span class="rbI" style="background:'+t[0]+';color:'+t[1]+'">'+ICO[r?r.ic:'tienda']+'</span><select class="rubSel'+(r?'':' vac')+'" id="rubSel" aria-label="Rubro de tu negocio"><option value="">Elige el rubro de tu negocio</option>'+
+  $('rubros').innerHTML='<span class="rbI" style="background:'+t[0]+';color:'+t[1]+'">'+ICO[r?r.ic:'tienda']+'</span><select class="rubSel'+(r?'':' vac')+'" id="rubSel" aria-label="Rubro de tu negocio"><option value="">Elige tu rubro</option>'+
     GRUPOS.map(g=>'<optgroup label="'+E(g[0])+'">'+g[1].map(n=>{const x=RUBROS.find(y=>y.t===n);return x?'<option value="'+x.k+'"'+(S.rubro===x.k?' selected':'')+'>'+E(n)+'</option>':''}).join('')+'</optgroup>').join('')+'</select>';
 }
 $('rubros').addEventListener('change',e=>{if(e.target.id==='rubSel'&&e.target.value)elegir(e.target.value)});
