@@ -26,7 +26,7 @@ dialog[data-pdm-hoja]::backdrop{background:var(--pdmu-velo)!important;-webkit-ba
 [data-pdm-hoja][data-pdm-grip]::before{content:""!important;display:block!important;position:absolute!important;top:8px!important;left:50%!important;width:40px!important;height:5px!important;margin:0 0 0 -20px!important;border-radius:3px!important;background:#E8D9CE!important;z-index:5!important;pointer-events:none!important;opacity:1!important;transform:none!important}
 [data-pdm-oculto]{display:none!important}
 [data-pdm-cab]{position:sticky!important;top:0!important;z-index:4!important;background-color:#fff!important;box-shadow:0 -64px 0 0 #fff!important}
-[data-pdm-grip] > [data-pdm-cab]::after{content:""!important;display:block!important;position:absolute!important;top:-14px!important;left:50%!important;width:40px!important;height:5px!important;margin:0 0 0 -20px!important;border-radius:3px!important;background:#E8D9CE!important;pointer-events:none!important}
+[data-pdm-grip] > [data-pdm-cab][data-pdm-cab-ancho]::after{content:""!important;display:block!important;position:absolute!important;top:-14px!important;left:50%!important;width:40px!important;height:5px!important;margin:0 0 0 -20px!important;border-radius:3px!important;background:#E8D9CE!important;pointer-events:none!important}
 [data-pdm-cab] [data-pdm-titulo]{margin:0!important;font:800 19px/1.25 var(--font,Inter,system-ui,sans-serif)!important;letter-spacing:-.2px!important;color:#C4410C!important;text-transform:none!important}
 [data-pdm-pie]{position:sticky!important;bottom:0!important;z-index:4!important;background-color:#fff!important}
 /* abrir y cerrar rápido */
@@ -88,6 +88,7 @@ body>.toast button{background:#FFF4EC!important;color:#C4410C!important;border:1
 @keyframes pdFhUp{from{transform:translateY(40px);opacity:0}}
 }
 </style>
+
 
 <style id="pd-cargando">
 html.pdCarga,html.pdCarga body{background:#FFF9F5!important}
@@ -387,6 +388,33 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
   .top .btn{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* demo: herramientas, pasos desplegables, Yape */
+.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:4px 0 8px;width:100%;box-sizing:border-box}
+.tool{display:flex;align-items:center;gap:8px;padding:10px;min-width:0;width:100%;box-sizing:border-box;border-radius:14px;background:#fff;border:1px solid var(--ln,#EFE3DA);text-align:left;font-family:inherit;color:inherit;min-height:56px}
+.tool svg{flex:0 0 20px;width:20px;height:20px;color:#C4410C}
+.tool b{display:block;font-size:13px;line-height:1.2}.tool small{display:block;font-size:11px;color:var(--mu,#6B5E55);line-height:1.25;margin-top:2px}
+.tool.on{border-color:#C4410C;background:#FFF4EC}
+.acc{border-radius:16px;background:#fff;border:1px solid #EFE3DA;margin:0 0 8px;overflow:hidden;flex:0 0 auto}
+.acc.cur{border:1.5px solid #C4410C}.acc.lock{background:#F6EFE9;opacity:.85}
+.accH{display:flex;align-items:center;gap:10px;width:100%;padding:12px;background:none;border:0;text-align:left;font-family:inherit;color:inherit}
+.accH i{flex:0 0 28px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 13px Inter,sans-serif;font-style:normal;background:#EADFD6;color:#6B5E55}
+.acc.cur .accH i{background:#C4410C;color:#fff}.acc.done .accH i{background:#15803D;color:#fff}
+.accH span{flex:1;min-width:0}.accH b{display:block;font-size:14px}.accH small{display:block;font-size:12px;color:var(--mu,#6B5E55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.accH s{width:10px;height:10px;border-right:2px solid #6B5E55;border-bottom:2px solid #6B5E55;transform:rotate(45deg);margin:-4px 4px 0;text-decoration:none}
+.accH s.up{transform:rotate(-135deg);margin-top:4px}
+.accB{padding:0 12px 12px}
+.paOpts{display:flex;flex-direction:column;gap:6px}
+.paO{display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:10px 12px;border-radius:12px;border:1px solid #EFE3DA;background:#fff;text-align:left;font-family:inherit;color:inherit}
+.paO b{font-size:13px}.paO small{font-size:11px;color:var(--mu,#6B5E55)}
+.paO.on{border:2px solid #C4410C;background:#FFF4EC}
+.qrBox{width:180px;height:180px;margin:6px auto 10px;border-radius:14px;border:1px solid #EFE3DA;overflow:hidden;background:#fff}
+.qrBox svg{width:100%;height:100%;display:block}
+.stars{display:flex;justify-content:center;gap:6px}
+.stars button{width:40px;height:40px;border:0;background:none;font-size:28px;line-height:1;color:#E3CFC2;padding:0}
+.stars button.on{color:#E0A100}
+.okB{background:#15803D!important}.noB{color:#B42318!important;border-color:#B42318!important}
+.ynPay{border-color:#E4D3F5!important}
 </style>
 </head>
 <body>
@@ -441,11 +469,11 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
   <h2>Todo lo que tu negocio necesita para vender por delivery</h2>
   <div class="grid3">
     <div class="ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v2a3 3 0 0 1-5.3 1.9A3 3 0 0 1 12 14a3 3 0 0 1-2.7-1.1A3 3 0 0 1 4 11z"/><path d="M5.5 13.5V20h13v-6.5"/></svg><b>Tu tienda virtual con enlace propio</b><p>Tu carta con fotos, precios y categorías. Compártela por WhatsApp, Facebook o Instagram y recibe pedidos ordenados.</p></div>
-    <div class="ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><b>Avisos con sonido al instante</b><p>Cada pedido nuevo suena y aparece en tu celular. Se instala como app, sin descargar nada pesado.</p></div>
+    <div class="ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><b>Avisos, pagos y reportes</b><p>Cada pedido nuevo suena en tu celular. En «Mis pagos» ves lo que Pidemás te debe y lo que debes; en «Reportes», tus ventas y tiempos.</p></div>
     <div class="ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="17" r="3"/><circle cx="18.5" cy="17" r="3"/><path d="M8.5 17h7l-2.5-7h-3M13 10h3l2.5 7M5.5 17l3-6h4"/></svg><b>Delivery sin tener motorizados</b><p>Pidemás asigna un motorizado a cada pedido. Recoge con código de seguridad para que nadie se lleve un pedido que no es suyo.</p></div>
-    <div class="ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><b>Seguimiento en vivo</b><p>Tú, tu cliente y Pidemás ven el mismo avance: recibido, preparando, recogiendo, en camino y entregado.</p></div>
-    <div class="ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3"/></svg><b>Cobros claros</b><p>Efectivo, Yape o ya pagado. Cada pedido dice quién cobra qué, con vuelto calculado para el motorizado.</p></div>
-    <div class="ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg><b>Tú controlas tu carta</b><p>Precios, stock, fotos, categorías, descartables y horario. Lo que cambias se ve al instante en tu tienda.</p></div>
+    <div class="ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><b>Seguimiento paso a paso</b><p>Tú, tu cliente y Pidemás ven el mismo avance. El cliente recibe con su código de entrega y al final califica tu pedido.</p></div>
+    <div class="ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3"/></svg><b>Cobra con tu propio Yape</b><p>Sube tu QR y el motorizado se lo muestra al cliente: el dinero llega directo a ti. Confirmas que te llegó y el motorizado lo sabe al instante. También efectivo, con vuelto calculado.</p></div>
+    <div class="ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg><b>Tú controlas tu carta</b><p>Precios, fotos, categorías y horario. Marca un producto como agotado o pausa los pedidos si estás saturado: tu tienda cambia al instante.</p></div>
   </div>
 </div></section>
 
@@ -458,12 +486,14 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
       <li><svg viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Los pedidos se pierden entre chats</li>
       <li><svg viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Buscas quién lleve el pedido</li>
       <li><svg viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>El cliente pregunta «¿ya viene?» a cada rato</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>No sabes si el Yape llegó ni quién debe qué</li>
     </ul></div>
     <div class="yes"><h3>Con Pidemás</h3><ul>
       <li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Un enlace con tu carta siempre actualizada</li>
       <li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Cada pedido llega ordenado, con aviso y monto</li>
       <li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Pidemás pone el motorizado</li>
       <li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tu cliente ve el seguimiento solo</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Cobras con tu Yape y sabes quién debe qué</li>
     </ul></div>
   </div>
 </div></section>
@@ -473,8 +503,10 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
   <h2>Lo que nos preguntan los negocios</h2>
   <details><summary>¿Qué tipo de negocios pueden unirse?</summary><p>Restaurantes, pollerías, cevicherías, cafeterías, panaderías, bodegas, licorerías, farmacias, tiendas de ropa, calzado, tecnología y muchos rubros más de Piura. Cada rubro tiene su propia configuración.</p></details>
   <details><summary>¿Necesito tener motorizados?</summary><p>No. Pidemás asigna un motorizado a cada pedido. Tú solo preparas y entregas el pedido en tu local al motorizado, comparando su código de recojo.</p></details>
-  <details><summary>¿Cómo cobro mis pedidos?</summary><p>El cliente puede pagar en efectivo o con Yape al recibir, o pagarte directamente coordinando por WhatsApp. En cada pedido eliges cómo quedó el pago y el panel le indica al motorizado qué cobrar.</p></details>
+  <details><summary>¿Cómo cobro mis pedidos?</summary><p>Si el cliente paga en efectivo, el motorizado cobra todo y Pidemás te paga los productos. Si elige Yape, lo coordinas por WhatsApp (el mensaje ya lleva tu número y tu QR) y eliges cómo quedó: que pague todo al recibir con tu Yape (el motorizado muestra tu QR y tú confirmas que te llegó), que ya te pagó los productos y solo falte el delivery, o que ya te pagó todo. En «Mis pagos» ves siempre quién le debe a quién.</p></details>
   <details><summary>¿En qué horario funciona?</summary><p>El delivery de Pidemás atiende de lunes a sábado, de 9:00 am a 10:00 pm, y recibe pedidos hasta las 9:30 pm. En tu panel pones tu propio horario dentro de ese rango.</p></details>
+  <details><summary>¿Qué pasa si me lleno de pedidos o se me acaba algo?</summary><p>Desde tu panel puedes pausar los pedidos por 15 minutos, 30 minutos o 1 hora (tu tienda aparece «En pausa» y vuelve sola), o marcar un producto como agotado para que desaparezca de tu tienda al instante.</p></details>
+  <details><summary>¿Cómo sé que el pedido llegó bien?</summary><p>El motorizado recoge con un código de recojo que tú comparas, y entrega con un código que solo tiene el cliente. Al final el cliente califica el pedido y ves sus opiniones en «Calificaciones».</p></details>
   <details><summary>¿Tengo que instalar algo?</summary><p>No hace falta. El panel funciona en el navegador del celular y, si quieres, lo instalas como app en tu pantalla de inicio con un toque.</p></details>
 </div></section>
 
@@ -788,7 +820,13 @@ const RUBROS=[
   ['Libros','Libro de cuentos infantiles','Tapa dura',29,'libro']]}
 ];
 const S={rubro:null,abierto:true,prods:[],cat:'Todo',cart:{},pago:'efectivo',tView:'tienda',tSheet:null,optP:null,
-  pTab:'inicio',pSheet:null,orden:null,alerta:false,ventas:0,entregados:0,tiempo:'20–30 min'};
+  pTab:'inicio',pSheet:null,orden:null,alerta:false,ventas:0,entregados:0,tiempo:'20–30 min',
+  pausa:0,pa:null,acc:{},cal:[],estrellas:0,cuentas:{debe:0,debes:0},tiempos:[]};
+const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-label="Código QR de Yape (ejemplo)" style="display: block"><rect x="-2" y="-2" width="29" height="29" fill="#FFFFFF"></rect><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM11 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM16 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM21 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM10 1h1v1h-1zM11 1h1v1h-1zM13 1h1v1h-1zM14 1h1v1h-1zM18 1h1v1h-1zM24 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM11 2h1v1h-1zM13 2h1v1h-1zM14 2h1v1h-1zM15 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM9 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM16 3h1v1h-1zM18 3h1v1h-1zM20 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM12 4h1v1h-1zM13 4h1v1h-1zM16 4h1v1h-1zM18 4h1v1h-1zM20 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM12 5h1v1h-1zM14 5h1v1h-1zM15 5h1v1h-1zM18 5h1v1h-1zM24 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM15 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM10 7h1v1h-1zM13 7h1v1h-1zM15 7h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM9 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM13 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM22 8h1v1h-1zM23 8h1v1h-1zM24 8h1v1h-1zM2 9h1v1h-1zM3 9h1v1h-1zM4 9h1v1h-1zM5 9h1v1h-1zM8 9h1v1h-1zM9 9h1v1h-1zM10 9h1v1h-1zM11 9h1v1h-1zM18 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM0 10h1v1h-1zM2 10h1v1h-1zM3 10h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM15 10h1v1h-1zM16 10h1v1h-1zM17 10h1v1h-1zM18 10h1v1h-1zM19 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM0 11h1v1h-1zM1 11h1v1h-1zM2 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM8 11h1v1h-1zM10 11h1v1h-1zM15 11h1v1h-1zM16 11h1v1h-1zM17 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM13 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM19 12h1v1h-1zM20 12h1v1h-1zM21 12h1v1h-1zM0 13h1v1h-1zM3 13h1v1h-1zM8 13h1v1h-1zM9 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM18 13h1v1h-1zM19 13h1v1h-1zM20 13h1v1h-1zM23 13h1v1h-1zM2 14h1v1h-1zM4 14h1v1h-1zM5 14h1v1h-1zM10 14h1v1h-1zM13 14h1v1h-1zM14 14h1v1h-1zM15 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM1 15h1v1h-1zM6 15h1v1h-1zM7 15h1v1h-1zM8 15h1v1h-1zM9 15h1v1h-1zM11 15h1v1h-1zM12 15h1v1h-1zM15 15h1v1h-1zM19 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM3 16h1v1h-1zM8 16h1v1h-1zM10 16h1v1h-1zM15 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM21 16h1v1h-1zM22 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM17 17h1v1h-1zM19 17h1v1h-1zM23 17h1v1h-1zM24 17h1v1h-1zM0 18h1v1h-1zM1 18h1v1h-1zM2 18h1v1h-1zM3 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM11 18h1v1h-1zM13 18h1v1h-1zM15 18h1v1h-1zM16 18h1v1h-1zM17 18h1v1h-1zM20 18h1v1h-1zM24 18h1v1h-1zM0 19h1v1h-1zM6 19h1v1h-1zM8 19h1v1h-1zM9 19h1v1h-1zM11 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM21 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM12 20h1v1h-1zM14 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM3 21h1v1h-1zM4 21h1v1h-1zM6 21h1v1h-1zM8 21h1v1h-1zM9 21h1v1h-1zM10 21h1v1h-1zM11 21h1v1h-1zM12 21h1v1h-1zM14 21h1v1h-1zM16 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM23 21h1v1h-1zM24 21h1v1h-1zM0 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM6 22h1v1h-1zM9 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM18 22h1v1h-1zM22 22h1v1h-1zM23 22h1v1h-1zM24 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM12 23h1v1h-1zM13 23h1v1h-1zM17 23h1v1h-1zM18 23h1v1h-1zM19 23h1v1h-1zM20 23h1v1h-1zM21 23h1v1h-1zM22 23h1v1h-1zM23 23h1v1h-1zM0 24h1v1h-1zM1 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM13 24h1v1h-1zM14 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1z" fill="#1F1A17"></path></svg>';
+const pausado=()=>S.pausa>Date.now();
+const abT=()=>S.abierto&&!pausado();
+const hora=t=>new Date(t).toLocaleTimeString('es-PE',{hour:'numeric',minute:'2-digit'});
+const PA={yape_negocio:['Paga todo al recibir con mi Yape','El motorizado muestra tu QR'],solo_delivery:['Me pagó productos, falta el delivery','El motorizado cobra el delivery'],pagado:['Cliente pagó todo, yo pago','Tú yapeas el delivery a Pidemás']};
 const R=()=>RUBROS.find(r=>r.k===S.rubro);
 const DEL=6,BOLSA=0.5;
 const STEPS=['Recibido','Preparando','Recogiendo','En camino','Entregado'];
@@ -796,14 +834,15 @@ const STEPS=['Recibido','Preparando','Recogiendo','En camino','Entregado'];
 const GUIA={
   0:['Elige el rubro de tu negocio','Toca un rubro y mira tu tienda y tu panel con productos de ese rubro.'],
   1:['Haz un pedido como cliente','Agrega productos en «Tu tienda» y toca «Ver carrito».'],
-  2:['Envía el pedido','Revisa el resumen y toca «Enviar pedido».'],
-  3:['¡Te llegó el pedido!','Míralo en «Tu panel»: elige en cuánto estará listo y confírmalo.'],
+  2:['Envía el pedido','Elige cómo pagas (prueba con Yape para ver cómo cobras con tu QR) y toca «Enviar pedido».'],
+  3:['¡Te llegó el pedido!','Ábrelo en «Tu panel». Si es Yape, coordina el pago y elige cómo quedó. Luego confírmalo.'],
   4:['Prepáralo','Cuando esté listo, toca «Pedido listo para recojo».'],
   5:['Llegó el motorizado','Compara su código de recojo y entrégale el pedido.'],
-  6:['Va en camino','Mira cómo avanza el pedido en la tienda y en tu panel.'],
-  7:['¡Entregado!','Así de simple. Prueba otro rubro, oculta un producto o cierra tu tienda desde el panel.']
+  6:['Va en camino','Mira cómo avanza en la tienda y en tu panel. El cliente tiene su código de entrega.'],
+  8:['¿Te llegó el Yape?','El cliente te pagó con tu QR. Confírmalo: el motorizado recibe tu respuesta al instante.'],
+  7:['¡Entregado!','Califica como cliente y revisa «Mis pagos», «Reportes» y «Calificaciones» en tu panel.']
 };
-function guia(n){$('gN').textContent=n===0?'★':n<7?n:'✓';$('gT').innerHTML=E(GUIA[n][0])+'<small>'+E(GUIA[n][1])+'</small>'}
+function guia(n){$('gN').textContent=n===0?'★':n===8?'6':n<7?n:'✓';$('gT').innerHTML=E(GUIA[n][0])+'<small>'+E(GUIA[n][1])+'</small>'}
 /* ---------- rubros ---------- */
 const GRUPOS=[
   ['Comida y bebidas',['Restaurantes','Comida criolla','Pizzerías','Pollerías','Hamburgueserías','Comida rápida','Sangucherías','Paviferías','Cevicherías','Chifas','Sushi y comida japonesa','Parrillas y anticuchos','Heladerías','Cafeterías','Juguerías','Dulcerías y pastelerías','Panaderías']],
@@ -849,14 +888,15 @@ function tienda(){
   if(!r){app.innerHTML='<div class="vacioTx"><span class="tLogo">'+ICO.tienda+'</span><b>Elige un rubro</b><small>Toca arriba el rubro de tu negocio y aquí aparecerá tu tienda con sus productos.</small></div>';$('tOver').innerHTML='';return}
   if(S.tView==='seg'&&S.orden){app.innerHTML=seguimiento();$('tOver').innerHTML='';return}
   const t=tono(r.ic);
-  let h='<div class="tHead"><div class="tNeg"><span class="tLogo" style="background:'+t[0]+';color:'+t[1]+'">'+ICO[r.ic]+'</span><span><b>'+E(r.neg)+'</b><small>'+E(r.sub)+' · Delivery '+E(r.time)+'</small><br><span class="est'+(S.abierto?'':' off')+'"><i></i>'+(S.abierto?'Abierto ahora':'Cerrado')+'</span></span></div></div>';
-  if(!S.abierto)h+='<div class="closedMsg">El negocio está cerrado en este momento. Vuelve en su horario de atención.</div>';
+  let h='<div class="tHead"><div class="tNeg"><span class="tLogo" style="background:'+t[0]+';color:'+t[1]+'">'+ICO[r.ic]+'</span><span><b>'+E(r.neg)+'</b><small>'+E(r.sub)+' · Delivery '+E(r.time)+'</small><br><span class="est'+(abT()?'':' off')+'"><i></i>'+(pausado()?'En pausa · vuelve '+hora(S.pausa):S.abierto?'Abierto ahora':'Cerrado')+'</span></span></div></div>';
+  if(pausado())h+='<div class="closedMsg">El negocio está atendiendo muchos pedidos. Vuelve a recibir pedidos a las '+hora(S.pausa)+'.</div>';
+  else if(!S.abierto)h+='<div class="closedMsg">El negocio está cerrado en este momento. Vuelve en su horario de atención.</div>';
   if(r.mayor)h+='<div class="mayor">Venta solo a mayores de 18 años. El motorizado verifica tu DNI al entregar.</div>';
   const cats=[...new Set(S.prods.filter(p=>p.on).map(p=>p.cat))];
   if(S.cat!=='Todo'&&!cats.includes(S.cat))S.cat='Todo';
   h+='<div class="tCats">'+['Todo'].concat(cats).map(c=>'<button type="button" class="'+(S.cat===c?'on':'')+'" data-cat="'+E(c)+'">'+E(c)+'</button>').join('')+'</div>';
   cats.filter(c=>S.cat==='Todo'||S.cat===c).forEach(c=>{h+='<div class="tSec">'+E(c)+'</div>';
-    S.prods.filter(p=>p.cat===c&&p.on).forEach(p=>{const q=enCarrito(p.id);const dis=S.abierto?'':' disabled';
+    S.prods.filter(p=>p.cat===c&&p.on).forEach(p=>{const q=enCarrito(p.id);const dis=abT()?'':' disabled';
       let ctl;
       if(p.opt)ctl='<button type="button" class="add" data-opt="'+p.id+'" aria-label="Elegir '+E(p.opt[0].toLowerCase())+' de '+E(p.n)+'"'+dis+'>+</button>'+(q?'<span class="enC">'+q+'</span>':'');
       else ctl=q?'<span class="qty"><button type="button" data-q="'+p.id+'" data-d="-1" aria-label="Quitar uno">−</button><span>'+q+'</span><button type="button" data-q="'+p.id+'" data-d="1" aria-label="Agregar uno">+</button></span>':'<button type="button" class="add" data-q="'+p.id+'" data-d="1" aria-label="Agregar '+E(p.n)+'"'+dis+'>+</button>';
@@ -864,7 +904,7 @@ function tienda(){
   h+='<div style="height:84px"></div>';
   app.innerHTML=h;
   let over='';
-  if(cnt()&&!S.tSheet&&S.abierto)over+='<button type="button" class="cartBar" data-a="carrito"><span><i>'+cnt()+'</i>Ver carrito</span><span>'+money(sub())+'</span></button>';
+  if(cnt()&&!S.tSheet&&abT())over+='<button type="button" class="cartBar" data-a="carrito"><span><i>'+cnt()+'</i>Ver carrito</span><span>'+money(sub())+'</span></button>';
   if(S.tSheet==='carrito')over+=carrito();
   if(S.tSheet==='opt')over+=hojaOpt();
   $('tOver').innerHTML=over;
@@ -882,28 +922,34 @@ function carrito(){
     +'<div class="box"><h4>Productos</h4>'+items().map(x=>'<div class="it"><b>'+x.q+'×</b><span>'+E(nomItem(x))+'</span><em>'+money(x.p.p*x.q)+'</em></div>').join('')+'</div>'
     +'<div class="box"><h4>Entrega</h4><div class="row"><span>Nombre</span><b>Cliente demo</b></div><div class="row"><span>Dirección</span><b>Av. Grau 1250, Piura</b></div></div>'
     +(r.mayor?'<div class="mayor" style="margin:0 0 10px">El motorizado verificará tu DNI al entregar.</div>':'')
-    +'<div class="box"><h4>¿Cómo pagas?</h4><div class="opts"><button type="button" class="opt'+(S.pago==='efectivo'?' on':'')+'" data-pago="efectivo">Efectivo al recibir</button><button type="button" class="opt'+(S.pago==='yape'?' on':'')+'" data-pago="yape">Yape</button></div></div>'
+    +'<div class="box"><h4>¿Cómo pagas?</h4><div class="opts"><button type="button" class="opt'+(S.pago==='efectivo'?' on':'')+'" data-pago="efectivo">Efectivo al recibir</button><button type="button" class="opt'+(S.pago==='yape'?' on':'')+'" data-pago="yape">Yape</button></div>'+(S.pago==='yape'?'<p class="hint" style="margin:8px 0 0">El negocio te escribirá por WhatsApp para coordinar el pago con su Yape.</p>':'')+'</div>'
     +'<div class="box"><div class="row"><span>Productos</span><b>'+money(sub())+'</b></div><div class="row"><span>Delivery · 1.8 km</span><b>'+money(DEL)+'</b></div><div class="row"><span>Bolsa</span><b>'+money(BOLSA)+'</b></div><div class="row t"><span>Total</span><b>'+money(tot())+'</b></div></div>'
     +'<button type="button" class="btn full" data-a="enviar">Enviar pedido · '+money(tot())+'</button></div></div>';
 }
 function seguimiento(){
   const o=S.orden,f=fase(o),r=R();
-  const txt=[['Esperando al negocio',r.neg+' está revisando tu pedido.'],['Preparando tu pedido','Estará listo en '+S.tiempo+'.'],[o.estado==='local'?'El motorizado está en el local':'Buscando motorizado',o.estado==='local'?'Carlos M. está recogiendo tu pedido.':'Pidemás está asignando un motorizado.'],['Tu pedido va en camino','Carlos M. está yendo a tu dirección.'],['¡Pedido entregado!','Gracias por pedir con Pidemás.']][f];
+  const txt=[['Esperando al negocio',r.neg+(o.pago==='yape'?' te escribirá por WhatsApp para coordinar el pago.':' está revisando tu pedido.')],['Preparando tu pedido','Estará listo en '+S.tiempo+'.'],[o.estado==='local'?'El motorizado está en el local':'Buscando motorizado',o.estado==='local'?'Carlos M. está recogiendo tu pedido.':'Pidemás está asignando un motorizado.'],['Tu pedido va en camino','Carlos M. está yendo a tu dirección.'],['¡Pedido entregado!','Gracias por pedir con Pidemás.']][f];
   const ic=[ICO.reloj,ICO[r.ic],ICO.moto,ICO.moto,ICO.ok][f];
-  let h='<div class="trk"><div class="trkTop"><div class="big">'+ic+'</div><b>'+E(txt[0])+'</b><small>'+E(txt[1])+'</small></div><div class="steps">';
+  let h='<div class="trk"><div class="trkTop"><div class="big">'+ic+'</div><b>'+E(txt[0])+'</b><small>'+E(txt[1])+'</small></div>';
+  if(f>=1&&f<4)h+='<div class="code" style="margin:0 0 12px"><small>TU CÓDIGO DE ENTREGA · dáselo al motorizado al recibir</small><b>'+o.codEnt+'</b></div>';
+  if(f===3&&S.pa==='yape_negocio')h+='<div class="box ynPay"><h4>Pago al recibir</h4><div class="row"><span>Paga con el Yape de</span><b>'+E(r.neg)+'</b></div><div class="row t"><span>Total</span><b>'+money(o.total)+'</b></div><p class="hint" style="margin:6px 0 0">El motorizado te mostrará el QR del negocio.</p></div>';
+  h+='<div class="steps">';
   const sub2=['Pedido enviado','El negocio lo confirmó','El motorizado lo recoge','Rumbo a tu casa','Disfrútalo'];
   STEPS.forEach((s,i)=>{const done=i<f||f===4,cur=i===f&&f!==4;h+='<div class="st'+(done?' done':'')+(cur?' cur':'')+'"><i></i><span><b>'+s+'</b><small>'+sub2[i]+'</small></span></div>'});
   h+='</div><div class="box" style="margin-top:12px"><h4>Pedido '+o.cod+'</h4>'+o.items.map(x=>'<div class="it"><b>'+x.q+'×</b><span>'+E(x.n)+'</span><em>'+money(x.v)+'</em></div>').join('')+'<div class="row t"><span>Total</span><b>'+money(o.total)+'</b></div></div>';
-  if(f===4)h+='<button type="button" class="btn full" data-a="otra">Hacer otro pedido</button>';
+  if(f===4){
+    h+='<div class="box" style="text-align:center"><h4>¿Qué tal tu pedido?</h4><div class="stars">'+[1,2,3,4,5].map(n=>'<button type="button" data-a="star" data-n="'+n+'" class="'+(n<=S.estrellas?'on':'')+'" aria-label="'+n+' estrella'+(n>1?'s':'')+'">★</button>').join('')+'</div>'+(S.estrellas?'<p class="hint" style="margin:6px 0 0">¡Gracias por calificar!</p>':'')+'</div>';
+    h+='<button type="button" class="btn full" data-a="otra">Hacer otro pedido</button>';
+  }
   return h+'</div>';
 }
 $('tApp').addEventListener('click',clickT);$('tOver').addEventListener('click',clickT);
 function clickT(e){
   if(!R())return;
   const c=e.target.closest('[data-cat]');if(c){S.cat=c.dataset.cat;tienda();return}
-  const op=e.target.closest('[data-opt]');if(op){if(!S.abierto)return;S.optP=+op.dataset.opt;S.tSheet='opt';tienda();return}
+  const op=e.target.closest('[data-opt]');if(op){if(!abT())return;S.optP=+op.dataset.opt;S.tSheet='opt';tienda();return}
   const pk=e.target.closest('[data-pick]');if(pk){const p=S.prods.find(x=>x.id===S.optP);const k=p.id+'|'+pk.dataset.pick;S.cart[k]=(S.cart[k]||0)+1;S.tSheet=null;tienda();toast(p.n+' · '+p.opt[0]+' '+pk.dataset.pick+' agregado');return}
-  const q=e.target.closest('[data-q]');if(q){if(!S.abierto)return;const k=q.dataset.q+'|';S.cart[k]=Math.max(0,(S.cart[k]||0)+ +q.dataset.d);tienda();return}
+  const q=e.target.closest('[data-q]');if(q){if(!abT())return;const k=q.dataset.q+'|';S.cart[k]=Math.max(0,(S.cart[k]||0)+ +q.dataset.d);tienda();return}
   const pg=e.target.closest('[data-pago]');if(pg){S.pago=pg.dataset.pago;tienda();return}
   const a=e.target.closest('[data-a]');if(!a)return;
   if(a.dataset.a==='cerrarT'&&e.target.closest('[data-stop]')&&!e.target.closest('.x'))return;
@@ -911,11 +957,12 @@ function clickT(e){
   if(k==='carrito'){S.tSheet='carrito';guia(2);tienda()}
   else if(k==='cerrarT'){S.tSheet=null;tienda()}
   else if(k==='enviar')enviar();
-  else if(k==='otra'){S.orden=null;S.tView='tienda';S.cart={};guia(1);tienda();panel()}
+  else if(k==='star'){S.estrellas=+a.dataset.n;S.cal.unshift({n:S.estrellas,t:S.estrellas>=4?'¡Todo muy rico, llegó rápido!':S.estrellas===3?'Bien, pero demoró un poco':'Llegó frío'});tienda();panel();toast('¡Gracias! El negocio verá tu calificación.')}
+  else if(k==='otra'){S.estrellas=0;S.orden=null;S.tView='tienda';S.cart={};guia(1);tienda();panel()}
 }
 function enviar(){
   const its=items().map(x=>({q:x.q,n:nomItem(x),v:x.p.p*x.q}));
-  S.orden={cod:'#'+Math.random().toString(16).slice(2,8).toUpperCase(),items:its,total:tot(),sub:sub(),pago:S.pago,estado:'nuevo',codigo:String(1000+Math.floor(Math.random()*9000))};
+  S.orden={cod:'#'+Math.random().toString(16).slice(2,8).toUpperCase(),items:its,total:tot(),sub:sub(),pago:S.pago,estado:'nuevo',codigo:String(1000+Math.floor(Math.random()*9000)),codEnt:String(1000+Math.floor(Math.random()*9000)),t0:Date.now()};S.pa=S.pago==='efectivo'?'efectivo':null;S.acc={};S.yape=null;
   S.cart={};S.tSheet=null;S.tView='seg';S.alerta=true;S.pTab='inicio';S.pSheet=null;
   tienda();
   const br=$('bridge');br.classList.add('live');$('bridgeTx').textContent='Enviando pedido…';
@@ -923,8 +970,20 @@ function enviar(){
     if(movil()){$('segDot').hidden=false;toast('¡Te llegó un pedido nuevo a tu panel!','Ver panel',()=>{vista('p');const sg=document.querySelector('.seg');const hd=document.querySelector('header');window.scrollTo({top:sg.getBoundingClientRect().top+scrollY-(hd?hd.offsetHeight:0)-10,behavior:'smooth'})})}},900);
 }
 /* ---------- PANEL ---------- */
-function oCard(o){const f=fase(o);const pill=[['Por aceptar',''],['Preparando','prep'],[o.estado==='local'?'Motorizado en tu local':'Listo · buscando motorizado','move'],['En camino','move'],['Entregado','ok']][f];
-  return '<button type="button" class="oc'+(o.estado==='nuevo'?' new':'')+'" data-a="abrir"><div class="ocR"><b>'+o.cod+'</b><small>'+(o.estado==='nuevo'?'Ahora':'Hoy')+'</small><em>'+money(o.total)+'</em></div><span class="sp '+pill[1]+'"><i></i>'+pill[0]+'</span><div class="bars">'+STEPS.map((_,i)=>'<s class="'+(i<=f?'on':'')+'"></s>').join('')+'</div><div class="ocD">Cliente demo · Delivery<br>'+o.items.map(x=>'<b>'+x.q+'×</b> '+E(x.n)).join(' · ')+'</div></button>'}
+function oCard(o){const f=fase(o);const pill=[['Por aceptar',''],['Preparando','prep'],[o.estado==='local'?'Motorizado en tu local':'Listo · buscando motorizado','move'],[S.yape==='esperando'?'¿Te llegó el Yape?':'En camino','move'],['Entregado','ok']][f];
+  return '<button type="button" class="oc'+(o.estado==='nuevo'||S.yape==='esperando'?' new':'')+'" data-a="abrir"><div class="ocR"><b>'+o.cod+'</b><small>'+(o.estado==='nuevo'?'Ahora':'Hoy')+'</small><em>'+money(o.total)+'</em></div><span class="sp '+pill[1]+'"><i></i>'+pill[0]+'</span><div class="bars">'+STEPS.map((_,i)=>'<s class="'+(i<=f?'on':'')+'"></s>').join('')+'</div><div class="ocD">Cliente demo · '+(o.pago==='yape'?'Yape':'Efectivo')+'<br>'+o.items.map(x=>'<b>'+x.q+'×</b> '+E(x.n)).join(' · ')+'</div></button>'}
+const TI={pausa:'<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>',ago:'<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',pago:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',rep:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',cal:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',qr:'<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2"/>'};
+const tIc=k=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+TI[k]+'</svg>';
+function herramientas(){
+  const ag=S.prods.filter(p=>!p.on).length,prom=S.cal.length?S.cal.reduce((a,c)=>a+c.n,0)/S.cal.length:0;
+  const t=(k,b,sm,cls)=>'<button type="button" class="tool'+(cls?' '+cls:'')+'" data-tool="'+k+'">'+tIc(k)+'<span><b>'+b+'</b><small>'+sm+'</small></span></button>';
+  return '<div class="tools">'+t('pausa',pausado()?'En pausa':'Pausar pedidos',pausado()?'Hasta las '+hora(S.pausa):'Si estás saturado',pausado()?'on':'')
+    +t('ago','Agotados',ag?ag+' agotado'+(ag>1?'s':''):'Apaga un producto')
+    +t('pago','Mis pagos',S.entregados?'Ver cuentas':'Lo que te paga Pidemás')
+    +t('rep','Reportes','Ventas y tiempos')
+    +t('cal','Calificaciones',S.cal.length?'★ '+prom.toFixed(1)+' de 5':'Lo que opinan')
+    +t('qr','Mi Yape (QR)','Listo para cobrar')+'</div>';
+}
 function panel(){
   const app=$('pApp'),r=R();
   if(!r){app.innerHTML='<div class="vacioTx"><span class="tLogo">'+ICO.lista+'</span><b>Tu panel de negocio</b><small>Cuando elijas un rubro, aquí verás tus pedidos y tus productos.</small></div>';$('pNav').innerHTML='';$('pOver').innerHTML='';return}
@@ -935,63 +994,102 @@ function panel(){
     h+='<div class="kpis"><div class="kpi"><span>Ventas de hoy</span><b>'+money(S.ventas)+'</b></div><div class="kpi"><span>Pedidos entregados</span><b>'+S.entregados+'</b></div></div>';
     h+='<div class="pSec">Pedidos de hoy</div>';
     h+=S.orden?oCard(S.orden):'<div class="empty">Aún no hay pedidos.<br>Haz uno desde la tienda y mira cómo te llega aquí.</div>';
-    h+='<p class="hint">Prueba: toca «Abierto» para cerrar tu tienda y mira cómo cambia para el cliente.</p>';
+    h+='<div class="pSec">Herramientas</div>'+herramientas();
+    h+='<p class="hint">Prueba: toca «Pausar pedidos» o «Abierto» y mira cómo cambia tu tienda para el cliente.</p>';
   }else if(S.pTab==='pedidos'){
     h+='<div class="pHead"><b>Pedidos</b></div>'+(S.orden?oCard(S.orden):'<div class="empty">Sin pedidos por ahora.</div>');
   }else{
     h+='<div class="pHead"><b>Productos</b><small style="text-transform:none">'+S.prods.length+' en tu carta</small></div><p class="hint" style="margin-bottom:6px">Apaga un producto y desaparece de tu tienda al instante.</p>';
     [...new Set(S.prods.map(p=>p.cat))].forEach(c=>{h+='<div class="pSec" style="padding-top:8px">'+E(c)+'</div>';
-      S.prods.filter(p=>p.cat===c).forEach(p=>{h+='<div class="prow'+(p.on?'':' off')+'">'+pImg(p)+'<span class="pTx"><b>'+E(p.n)+'</b><small>'+(p.opt?E(p.opt[0])+': '+E(p.opt[1].join(', ')):E(p.d))+'</small><em>'+money(p.p)+'</em></span><button type="button" class="sw'+(p.on?' on':'')+'" data-tog="'+p.id+'" aria-label="'+(p.on?'Ocultar':'Mostrar')+' '+E(p.n)+'"></button></div>'})});
+      S.prods.filter(p=>p.cat===c).forEach(p=>{h+=prow(p)})});
   }
   h+='<div style="height:20px"></div>';
   app.innerHTML=h;
-  const bd=S.orden&&S.orden.estado==='nuevo'?'<span class="bd">1</span>':'';
+  const bd=S.orden&&(S.orden.estado==='nuevo'||S.yape==='esperando')?'<span class="bd">1</span>':'';
   $('pNav').innerHTML=[['inicio','Inicio',ICO.casa],['pedidos','Pedidos',ICO.lista],['productos','Productos',ICO.capas]].map(([k,t,ic])=>'<button type="button" class="'+(S.pTab===k?'on':'')+'" data-tab="'+k+'">'+ic+t+(k==='pedidos'?bd:'')+'</button>').join('');
   let over='';
-  if(S.alerta&&S.orden&&S.orden.estado==='nuevo'&&!S.pSheet){const o=S.orden;over+='<div class="alert" role="alert"><div class="aT"><i></i>Nuevo pedido</div><div class="ocR" style="margin-top:8px"><b>'+o.cod+'</b><small>Ahora</small><em>'+money(o.total)+'</em></div><div class="ocD">Cliente demo · Delivery<br>'+o.items.map(x=>'<b>'+x.q+'×</b> '+E(x.n)).join(' · ')+'</div><div class="acts"><button type="button" class="btn light sm" data-a="cerrarAlerta">Luego</button><button type="button" class="btn sm" data-a="abrir">Aceptar pedido</button></div></div>'}
-  if(S.pSheet)over+=detalle();
+  if(S.alerta&&S.orden&&S.orden.estado==='nuevo'&&!S.pSheet){const o=S.orden;over+='<div class="alert" role="alert"><div class="aT"><i></i>Nuevo pedido</div><div class="ocR" style="margin-top:8px"><b>'+o.cod+'</b><small>Ahora</small><em>'+money(o.total)+'</em></div><div class="ocD">Cliente demo · '+(o.pago==='yape'?'Yape (coordinar)':'Efectivo')+'<br>'+o.items.map(x=>'<b>'+x.q+'×</b> '+E(x.n)).join(' · ')+'</div><div class="acts"><button type="button" class="btn light sm" data-a="cerrarAlerta">Luego</button><button type="button" class="btn sm" data-a="abrir">Ver pedido</button></div></div>'}
+  if(S.pSheet==='det')over+=detalle();
+  else if(S.pSheet==='yape')over+=hojaYapeLlego();
+  else if(S.pSheet)over+=hojaTool(S.pSheet);
   $('pOver').innerHTML=over;
+}
+function prow(p){return '<div class="prow'+(p.on?'':' off')+'">'+pImg(p)+'<span class="pTx"><b>'+E(p.n)+'</b><small>'+(p.on?(p.opt?E(p.opt[0])+': '+E(p.opt[1].join(', ')):E(p.d)):'Agotado · no aparece en tu tienda')+'</small><em>'+money(p.p)+'</em></span><button type="button" class="sw'+(p.on?' on':'')+'" data-tog="'+p.id+'" aria-label="'+(p.on?'Apagar ':'Prender ')+E(p.n)+'"></button></div>'}
+function hoja(t,b){return '<div class="sheet" data-a="cerrarP"><div class="card" data-stop="1"><div class="grab"></div><div class="shH"><b>'+E(t)+'</b><button type="button" class="x" data-a="cerrarP" aria-label="Cerrar">×</button></div>'+b+'</div></div>'}
+function hojaTool(k){
+  const r=R();
+  if(k==='pausa')return hoja('Pausar pedidos',(pausado()?'<div class="box" style="text-align:center"><small style="color:var(--mu)">Estás en pausa hasta</small><div style="font:800 26px Inter,sans-serif">'+hora(S.pausa)+'</div></div><button type="button" class="btn full" data-pz="0">Reanudar ahora</button><p class="hint">O alarga la pausa:</p>':'<p class="hint" style="margin-top:0">Mientras estés en pausa, tu tienda aparece «En pausa» y nadie puede pedir. Vuelve sola a la hora que elijas.</p>')
+    +'<div class="chips">'+[[15,'15 min'],[30,'30 min'],[60,'1 hora']].map(x=>'<button type="button" class="chip" data-pz="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>');
+  if(k==='ago')return hoja('Agotados','<p class="hint" style="margin-top:0">Apaga lo que se terminó. Vuelve a prenderlo cuando tengas otra vez.</p>'+S.prods.map(prow).join(''));
+  if(k==='pago'){const c=S.cuentas;return hoja('Mis pagos','<div class="box"><div class="row"><span>Pidemás te debe</span><b>'+money(c.debe)+'</b></div><p class="hint" style="margin:4px 0 0">Productos de pedidos que el cliente pagó en efectivo al motorizado.</p></div>'
+    +'<div class="box"><div class="row"><span>Tú le debes a Pidemás</span><b>'+money(c.debes)+'</b></div><p class="hint" style="margin:4px 0 0">Delivery de pedidos que el cliente te pagó a ti con tu Yape.</p></div>'
+    +(S.entregados?'':'<p class="hint">Entrega un pedido de la demo y mira cómo se arman tus cuentas.</p>'))}
+  if(k==='rep'){const tp=S.tiempos.length?Math.round(S.tiempos.reduce((a,b)=>a+b,0)/S.tiempos.length):0;return hoja('Reportes','<div class="kpis"><div class="kpi"><span>Ventas de hoy</span><b>'+money(S.ventas)+'</b></div><div class="kpi"><span>Pedidos</span><b>'+S.entregados+'</b></div></div><div class="box"><div class="row"><span>Tiempo promedio de entrega</span><b>'+(tp?tp+' s (demo)':'—')+'</b></div><div class="row"><span>Producto más pedido</span><b>'+(S.top||'—')+'</b></div></div><p class="hint">En tu panel real ves ventas por día, semana y mes.</p>')}
+  if(k==='cal'){const prom=S.cal.length?S.cal.reduce((a,c)=>a+c.n,0)/S.cal.length:0;return hoja('Calificaciones',S.cal.length?'<div class="box" style="text-align:center"><div style="font:800 30px Inter,sans-serif">★ '+prom.toFixed(1)+'</div><small style="color:var(--mu)">'+S.cal.length+' opinión'+(S.cal.length>1?'es':'')+'</small></div>'+S.cal.map(c=>'<div class="box"><b style="color:#B7791F">'+'★'.repeat(c.n)+'</b><div style="font-size:14px;margin-top:4px">'+E(c.t)+'</div></div>').join(''):'<p class="hint" style="margin-top:0">Cuando el cliente califique su pedido (al final del seguimiento en la tienda), lo verás aquí.</p>')}
+  if(k==='qr')return hoja('Mi Yape (QR)','<div class="box" style="background:#FFF4EC;border-color:#F1C9B6"><b style="color:#9A330A">Sube solo el QR, recortado</b><div style="font-size:14px;margin-top:4px">Recorta la captura para que se vea únicamente el cuadro del QR, así el cliente lo puede escanear.</div></div><div class="qrBox">'+QR+'</div><div class="box"><div class="row"><span>Número de Yape</span><b>912 345 678</b></div><div class="row"><span>Titular</span><b>'+E(r.neg)+'</b></div></div><p class="hint">Va en el WhatsApp para coordinar el pago y el motorizado lo muestra cuando el cliente paga todo con tu Yape.</p>');
+  return '';
+}
+function hojaYapeLlego(){const o=S.orden;return hoja('¿Te llegó el Yape?','<div class="box" style="text-align:center"><small style="color:var(--mu)">Pedido '+o.cod+' · Cliente demo</small><div style="font:800 34px Inter,sans-serif">'+money(o.total)+'</div></div><p class="hint" style="margin-top:0">El motorizado dice que el cliente ya te yapeó. Revisa tu Yape y responde: <b>el motorizado recibe tu respuesta al instante</b>.</p><button type="button" class="btn full okB" data-a="yapeSi">Sí, me llegó</button><button type="button" class="btn light full noB" data-a="yapeNo" style="margin-top:8px">No me llegó</button>')}
+function paso(i,act,tit,sum,body){
+  const done=i<act||act===4,cur=i===act&&act!==4,lock=i>act,open=cur||(act===4&&i===4)?S.acc[i]!==false:!!S.acc[i]&&!lock;
+  return '<div class="acc'+(cur?' cur':done?' done':' lock')+'"><button type="button" class="accH" data-acc="'+i+'"'+(lock?' disabled':'')+'><i>'+(done?'✓':i+1)+'</i><span><b>'+tit+'</b>'+(done&&!open?'<small>'+sum+'</small>':lock?'<small>Se muestra en su momento</small>':'')+'</span>'+(lock?'':'<s class="'+(open?'up':'')+'"></s>')+'</button>'+(open?'<div class="accB">'+body+'</div>':'')+'</div>';
 }
 function detalle(){
   const o=S.orden,f=fase(o),r=R();
-  let h='<div class="sheet" data-a="cerrarP"><div class="card" data-stop="1"><div class="grab"></div><div class="shH"><b>'+o.cod+' · '+money(o.total)+'</b><button type="button" class="x" data-a="cerrarP" aria-label="Cerrar">×</button></div>';
-  h+='<div class="bars" style="margin:0 0 12px">'+STEPS.map((_,i)=>'<s class="'+(i<=f?'on':'')+'"></s>').join('')+'</div>';
-  h+='<div class="box"><h4>Recorrido</h4><div class="row"><span>Recojo</span><b>'+E(r.neg)+'</b></div><div class="row"><span>Entrega</span><b>Av. Grau 1250 · Cliente demo</b></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><button type="button" class="btn sm wa" data-a="noop">WhatsApp</button><button type="button" class="btn light sm" data-a="noop">Llamar</button></div></div>';
-  h+='<div class="box"><h4>Pedido</h4>'+o.items.map(x=>'<div class="it"><b>'+x.q+'×</b><span>'+E(x.n)+'</span><em>'+money(x.v)+'</em></div>').join('')+'<div class="row"><span>Productos</span><b>'+money(o.sub)+'</b></div><div class="row"><span>Delivery</span><b>'+money(DEL)+'</b></div><div class="row"><span>Bolsa</span><b>'+money(BOLSA)+'</b></div><div class="row t"><span>Total</span><b>'+money(o.total)+'</b></div></div>';
-  if(r.mayor)h+='<div class="mayor" style="margin:0 0 10px">Producto +18: el motorizado verificará el DNI del cliente al entregar.</div>';
-  h+='<div class="box"><h4>Pago</h4><div class="row"><span>Método</span><b>'+(o.pago==='efectivo'?'Efectivo al recibir':'Yape al recibir')+'</b></div><div class="row"><span>El motorizado cobra</span><b>'+money(o.total)+'</b></div></div>';
-  if(o.estado==='nuevo'){
-    h+='<div class="box"><h4>¿En cuánto estará listo?</h4><div class="chips">'+['10–20 min','20–30 min','30–40 min'].map(t=>'<button type="button" class="chip'+(S.tiempo===t?' on':'')+'" data-t="'+t+'">'+t+'</button>').join('')+'</div></div>';
-    h+='<button type="button" class="btn full" data-a="confirmar">Confirmar y enviar a Pidemás</button>';
-  }else if(o.estado==='prep'){
-    h+='<div class="box" style="text-align:center"><b style="font-size:15px">Preparando · listo en '+E(S.tiempo)+'</b></div><button type="button" class="btn full" data-a="listo">Pedido listo para recojo</button>';
-  }else if(o.estado==='recojo'){
-    h+='<div class="box" style="text-align:center"><b style="font-size:15px">Pidemás asignó a Carlos M.</b><div style="font-size:13px;color:var(--mu);margin-top:4px">Ya va camino a tu local.</div></div>';
-  }else if(o.estado==='local'){
-    h+='<div class="code"><small>CÓDIGO DE RECOJO · pídeselo a Carlos M. y compáralo</small><b>'+o.codigo+'</b></div><button type="button" class="btn full" style="margin-top:10px" data-a="entregar">El código coincide · Entregar</button>';
-  }else if(o.estado==='camino'){
-    h+='<div class="box" style="text-align:center"><b style="font-size:15px">Carlos M. va camino al cliente</b></div>';
-  }else{
-    h+='<div class="box" style="text-align:center;border-color:#BFE3CB;background:var(--okb)"><b style="font-size:15px;color:var(--ok)">Pedido entregado · '+money(o.total)+'</b></div>';
-  }
-  return h+'</div></div>';
+  const pagoTx=o.pago==='efectivo'?'Efectivo al recibir':S.pa?PA[S.pa][0]:'Yape · por coordinar';
+  const cobra=o.pago==='efectivo'||S.pa==='yape_negocio'?money(o.total):S.pa==='solo_delivery'?money(DEL):S.pa==='pagado'?'Nada':'—';
+  const items='<div class="box"><h4>Pedido</h4>'+o.items.map(x=>'<div class="it"><b>'+x.q+'×</b><span>'+E(x.n)+'</span><em>'+money(x.v)+'</em></div>').join('')+'<div class="row"><span>Productos</span><b>'+money(o.sub)+'</b></div><div class="row"><span>Delivery + bolsa</span><b>'+money(DEL+BOLSA)+'</b></div><div class="row t"><span>Total</span><b>'+money(o.total)+'</b></div></div>'+(r.mayor?'<div class="mayor" style="margin:0 0 10px">Producto +18: el motorizado verificará el DNI del cliente al entregar.</div>':'');
+  let b1=items;
+  if(o.pago==='yape'){
+    b1+='<div class="box"><h4>1 · Coordina el pago</h4><p class="hint" style="margin:0 0 8px">El cliente eligió Yape. El mensaje ya lleva tu número y tu QR.</p><button type="button" class="btn sm wa full" data-a="waPago">Coordinar por WhatsApp</button></div>';
+    b1+='<div class="box"><h4>2 · ¿Cómo quedó el pago?</h4><div class="paOpts">'+Object.keys(PA).map(k=>'<button type="button" class="paO'+(S.pa===k?' on':'')+'" data-pa="'+k+'"><b>'+PA[k][0]+'</b><small>'+PA[k][1]+'</small></button>').join('')+'</div></div>';
+  }else b1+='<div class="box"><h4>Pago</h4><div class="row"><span>Método</span><b>Efectivo al recibir</b></div><div class="row"><span>El motorizado cobra</span><b>'+money(o.total)+'</b></div></div>';
+  b1+='<div class="box"><h4>'+(o.pago==='yape'?'3 · ':'')+'¿En cuánto estará listo?</h4><div class="chips">'+['10–20 min','20–30 min','30–40 min'].map(t=>'<button type="button" class="chip'+(S.tiempo===t?' on':'')+'" data-t="'+t+'">'+t+'</button>').join('')+'</div></div><button type="button" class="btn full" data-a="confirmar">Confirmar y enviar a Pidemás</button>';
+  const b2='<div class="box" style="text-align:center"><b style="font-size:15px">Preparando · listo en '+E(S.tiempo)+'</b><div style="font-size:13px;color:var(--mu);margin-top:4px">El motorizado cobra: '+cobra+'</div></div><button type="button" class="btn full" data-a="listo">Pedido listo para recojo</button>';
+  const b3=o.estado==='recojo'?'<div class="box" style="text-align:center"><b style="font-size:15px">Pidemás asignó a Carlos M.</b><div style="font-size:13px;color:var(--mu);margin-top:4px">Ya va camino a tu local.</div></div>'
+    :'<div class="code"><small>CÓDIGO DE RECOJO · pídeselo a Carlos M. y compáralo</small><b>'+o.codigo+'</b></div><button type="button" class="btn full" style="margin-top:10px" data-a="entregar">El código coincide · Entregar</button>';
+  let b4='<div class="box" style="text-align:center"><b style="font-size:15px">Carlos M. va camino al cliente</b><div style="font-size:13px;color:var(--mu);margin-top:4px">Cobra: '+cobra+(S.pa==='yape_negocio'?' con tu QR':'')+'</div></div>';
+  if(S.yape==='esperando')b4+='<button type="button" class="btn full" data-a="yapeVer">¿Te llegó el Yape? Responder</button>';
+  else if(S.yape==='no')b4+='<div class="box" style="background:#FEF3F2;border-color:#FDA29B"><b style="color:#B42318">Le avisamos al motorizado</b><div style="font-size:13px;margin-top:4px">El cliente revisará su Yape y volverá a intentarlo.</div></div>';
+  const c=S.pa==='yape_negocio'?'Cobraste '+money(o.total)+' en tu Yape · le debes el delivery ('+money(DEL)+') a Pidemás':S.pa==='pagado'?'Ya cobraste todo · yapeas el delivery a Pidemás':S.pa==='solo_delivery'?'Ya cobraste los productos · Pidemás no te debe nada':'Pidemás te paga los productos ('+money(o.sub)+')';
+  const b5='<div class="box" style="text-align:center;border-color:#BFE3CB;background:var(--okb)"><b style="font-size:15px;color:var(--ok)">Pedido entregado · '+money(o.total)+'</b><div style="font-size:13px;margin-top:4px">'+c+'</div></div>';
+  let h='<div class="bars" style="margin:0 0 12px">'+STEPS.map((_,i)=>'<s class="'+(i<=f?'on':'')+'"></s>').join('')+'</div>';
+  h+=paso(0,f,'Aceptar el pedido',(o.pago==='yape'&&S.pa?PA[S.pa][0]+' · ':'')+'listo en '+S.tiempo,b1);
+  h+=paso(1,f,'Preparar el pedido','Listo para recojo',b2);
+  h+=paso(2,f,'Entregar al motorizado','Código '+o.codigo+' · entregado a Carlos M.',b3);
+  h+=paso(3,f,'En camino al cliente',S.yape==='si'?'Yape confirmado':'Llegó donde el cliente',b4);
+  h+=paso(4,f,'Entregado',c,b5);
+  return hoja(o.cod+' · '+money(o.total),h);
 }
 $('pApp').addEventListener('click',clickP);$('pOver').addEventListener('click',clickP);$('pNav').addEventListener('click',clickP);
+function finEntrega(o){if(S.orden!==o)return;o.estado='entregado';S.yape=S.pa==='yape_negocio'?'si':S.yape;S.ventas+=o.sub;S.entregados++;S.tiempos.push(Math.round((Date.now()-o.t0)/1000));S.top=(o.items.slice().sort((a,b)=>b.q-a.q)[0]||{}).n;
+  if(S.pa==='yape_negocio'||S.pa==='pagado')S.cuentas.debes+=DEL;else if(S.pa!=='solo_delivery')S.cuentas.debe+=o.sub;
+  S.pSheet=S.pSheet==='yape'?null:S.pSheet;guia(7);sync();toast('¡Pedido entregado! Revisa «Mis pagos» y califica como cliente.')}
+function pedirYape(o){if(S.orden!==o||o.estado!=='camino')return;S.yape='esperando';S.pSheet='yape';beep();const pn=$('pScr');pn.classList.add('ring');setTimeout(()=>pn.classList.remove('ring'),1100);guia(8);sync();
+  if(movil()&&$('stage').dataset.v!=='p'){$('segDot').hidden=false;toast('¿Te llegó el Yape? Responde en tu panel','Ver panel',()=>vista('p'))}}
 function clickP(e){
   if(!R())return;
-  const tb=e.target.closest('[data-tab]');if(tb){S.pTab=tb.dataset.tab;panel();return}
-  const tg=e.target.closest('[data-tog]');if(tg){const p=S.prods.find(x=>x.id==tg.dataset.tog);p.on=!p.on;if(!p.on)Object.keys(S.cart).forEach(k=>{if(k.split('|')[0]==p.id)delete S.cart[k]});panel();tienda();toast(p.on?p.n+' vuelve a verse en tu tienda':p.n+' ya no se ve en tu tienda');return}
+  const tb=e.target.closest('[data-tab]');if(tb){S.pTab=tb.dataset.tab;S.pSheet=null;panel();return}
+  const tg=e.target.closest('[data-tog]');if(tg){const p=S.prods.find(x=>x.id==tg.dataset.tog);p.on=!p.on;if(!p.on)Object.keys(S.cart).forEach(k=>{if(k.split('|')[0]==p.id)delete S.cart[k]});panel();tienda();toast(p.on?p.n+' vuelve a tu tienda':p.n+' quedó agotado y ya no aparece');return}
+  const tl=e.target.closest('[data-tool]');if(tl){S.pSheet=tl.dataset.tool;S.alerta=false;panel();return}
+  const pz=e.target.closest('[data-pz]');if(pz){const m=+pz.dataset.pz;S.pausa=m?Date.now()+m*60000:0;if(m)S.tSheet=null;S.pSheet=null;sync();toast(m?'Tu tienda está en pausa hasta las '+hora(S.pausa):'Listo, ya recibes pedidos otra vez');return}
+  const ac=e.target.closest('[data-acc]');if(ac){const i=+ac.dataset.acc,f=fase(S.orden);const open=i===f?S.acc[i]!==false:!!S.acc[i];S.acc[i]=!open;panel();return}
+  const pa=e.target.closest('[data-pa]');if(pa){S.pa=pa.dataset.pa;panel();return}
   const ch=e.target.closest('[data-t]');if(ch){S.tiempo=ch.dataset.t;panel();return}
   const a=e.target.closest('[data-a]');if(!a)return;
   if(a.dataset.a==='cerrarP'&&e.target.closest('[data-stop]')&&!e.target.closest('.x'))return;
   const k=a.dataset.a,o=S.orden;
-  if(k==='abrir'){S.pSheet='det';S.alerta=false;panel()}
+  if(k==='abrir'){S.pSheet=S.yape==='esperando'?'yape':'det';S.alerta=false;panel()}
   else if(k==='cerrarP'){S.pSheet=null;panel()}
   else if(k==='cerrarAlerta'){S.alerta=false;panel()}
   else if(k==='abierto'){S.abierto=!S.abierto;if(!S.abierto)S.tSheet=null;panel();tienda();toast(S.abierto?'Tu tienda vuelve a recibir pedidos':'Tu tienda aparece cerrada para los clientes')}
-  else if(k==='confirmar'){o.estado='prep';guia(4);sync()}
-  else if(k==='listo'){o.estado='recojo';guia(5);sync();setTimeout(()=>{if(S.orden===o&&o.estado==='recojo'){o.estado='local';beep();sync()}},2600)}
-  else if(k==='entregar'){o.estado='camino';guia(6);sync();setTimeout(()=>{if(S.orden===o&&o.estado==='camino'){o.estado='entregado';S.ventas+=o.total;S.entregados++;guia(7);sync();toast('¡Pedido entregado! Se sumó a tus ventas de hoy.')}},4000)}
+  else if(k==='waPago')toast('Se abriría WhatsApp con el pedido, el total y tu Yape (número, titular y QR).');
+  else if(k==='confirmar'){if(o.pago==='yape'&&!S.pa){toast('Primero elige cómo quedó el pago con el cliente');return}o.estado='prep';S.acc={};guia(4);sync()}
+  else if(k==='listo'){o.estado='recojo';S.acc={};guia(5);sync();setTimeout(()=>{if(S.orden===o&&o.estado==='recojo'){o.estado='local';beep();sync()}},2600)}
+  else if(k==='entregar'){o.estado='camino';S.acc={};guia(6);sync();setTimeout(()=>{if(S.pa==='yape_negocio')pedirYape(o);else finEntrega(o)},4000)}
+  else if(k==='yapeVer'){S.pSheet='yape';panel()}
+  else if(k==='yapeSi'){S.yape='si';S.pSheet='det';sync();toast('Le avisamos al motorizado: ya puede entregar');setTimeout(()=>finEntrega(o),1800)}
+  else if(k==='yapeNo'){S.yape='no';S.pSheet='det';sync();toast('Le avisamos al motorizado que no te llegó');setTimeout(()=>pedirYape(o),3500)}
 }
 function sync(){panel();tienda()}
 pintarRubros();guia(0);tienda();panel();
@@ -1195,6 +1293,7 @@ function cabecera(h){
       if(!t.hasAttribute('data-pdm-titulo'))t.setAttribute('data-pdm-titulo','');
     }
     const p=getComputedStyle(head).position;if(p!=='fixed'&&p!=='absolute')head.setAttribute('data-pdm-cab','');
+    try{const hw=head.getBoundingClientRect().width,hj=(head.closest('[data-pdm-hoja]')||head.parentElement).getBoundingClientRect().width;if(hj&&hw>=hj*0.8)head.setAttribute('data-pdm-cab-ancho','');else head.removeAttribute('data-pdm-cab-ancho')}catch(e){}
   }
   /* pie con botones: el último bloque de abajo queda fijo */
   let cont=h;if(h.children.length===1&&h.firstElementChild!==head)cont=h.firstElementChild;
