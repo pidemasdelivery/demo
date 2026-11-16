@@ -105,7 +105,7 @@ function salir(){if(fin)return;fin=true;h.classList.add("pdCargaSale");setTimeou
 
 
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Pidemás para negocios · Prueba la demo</title>
+<title>Pidemás para negocios · Afiliación gratis y sin comisiones</title>
 <meta name="description" content="Tu tienda virtual y tu panel de pedidos conectados con el delivery de Pidemás en Piura. Pruébalo aquí.">
 <meta name="theme-color" content="#FFF9F5">
 <link rel="icon" href="https://pidemasdelivery.github.io/icon-192.png">
@@ -415,6 +415,20 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
 .stars button.on{color:#E0A100}
 .okB{background:#15803D!important}.noB{color:#B42318!important;border-color:#B42318!important}
 .ynPay{border-color:#E4D3F5!important}
+
+/* afiliación y funciones */
+.incl{list-style:none;margin:18px 0 22px;padding:0;display:flex;flex-direction:column;gap:10px}
+.incl li{display:flex;gap:10px;align-items:flex-start;font-size:16px;line-height:1.45}
+.incl svg,.fcol svg{flex:0 0 20px;width:20px;height:20px;margin-top:2px}
+.secP{max-width:760px;margin:10px 0 22px;font-size:17px;line-height:1.55;color:var(--mu,#6B5E55)}
+.feat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.fcol{background:#fff;border:1px solid var(--ln);border-radius:var(--r);padding:20px}
+.fcol h3{margin:0;font-size:19px;color:#C4410C}
+.fcol small{display:block;margin-top:2px;font-size:13px;color:var(--mu,#6B5E55);font-weight:600}
+.fcol ul{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.fcol li{display:flex;gap:8px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+@media (max-width:1100px){.feat{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.feat{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -427,11 +441,16 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
 <section class="hero" id="inicio"><div class="wrap">
   <div>
     <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Para negocios de Piura</span>
-    <h1>Vende por internet <span>sin complicarte.</span></h1>
-    <p>Con Pidemás tienes tu tienda virtual, un panel para atender pedidos desde el celular y motorizados que entregan por ti. Pruébalo aquí abajo: haz un pedido como cliente y atiéndelo como negocio.</p>
+    <h1>Afilia tu negocio <span>gratis y sin comisiones.</span></h1>
+    <p>Vende por delivery sin complicarte: tú atiendes desde el celular y Pidemás pone los motorizados. Pruébalo aquí abajo: haz un pedido como cliente y atiéndelo como negocio.</p>
+    <ul class="incl">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span><b>Ingreso a la app Pidemás</b> para atender tus pedidos, cobrar y ver tus cuentas</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span><b>Tu tienda virtual</b> para que tus clientes vean tu carta y te pidan</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span><b>Sin comisiones por pedido</b> y sin costo de afiliación</span></li>
+    </ul>
     <div class="ctas">
       <a class="btn" href="#demo"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Probar la demo</a>
-      <a class="btn light" href="#beneficios">Ver beneficios</a>
+      <a class="btn light" href="#funciones">Ver todas las funciones</a>
     </div>
   </div>
 </div></section>
@@ -461,6 +480,19 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
       <span class="lbl">Tu panel de negocio <small>· lo que ves tú</small></span>
       <div class="phone"><div class="scr" id="pScr"><div class="sbar"><span>9:41</span><span>Panel</span></div><div class="app" id="pApp"></div><div id="pOver"></div><nav class="pNav" id="pNav"></nav></div></div>
     </div>
+  </div>
+</div></section>
+
+
+<section class="sec" id="funciones"><div class="wrap">
+  <span class="kick">Todo lo que incluye</span>
+  <h2>Las funciones de Pidemás</h2>
+  <p class="secP">Tu afiliación es <b>gratis y sin comisiones</b>. Incluye tu ingreso a la app Pidemás y tu tienda virtual, y trabajas con nuestros motorizados y nuestra administración.</p>
+  <div class="feat">
+    <div class="fcol"><h3>Tu tienda virtual</h3><small>Lo que ve tu cliente</small><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Tu carta con fotos, precios, categorías y buscador</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Opciones por producto (tamaño, sabor, talla)</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Tu horario de atención; si estás cerrado, el cliente reserva para cuando atiendas</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Paga en efectivo o con Yape</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Seguimiento del pedido paso a paso, en vivo</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Código de entrega para recibir seguro</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Califica su pedido al final</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Se instala como app en el celular</span></li></ul></div>
+    <div class="fcol"><h3>Tu app de negocio</h3><small>Lo que ves tú</small><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Aviso con sonido y notificación por cada pedido nuevo</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Cada pedido por pasos: aceptar, preparar, entregar, en camino y entregado</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Coordina el pago por WhatsApp con un mensaje listo que lleva tu Yape</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Sube tu QR de Yape: el cliente te paga directo a ti</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Confirma si te llegó el Yape y el motorizado lo sabe al instante</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Código de recojo para entregar solo al motorizado correcto</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Pausa los pedidos si estás saturado y marca productos agotados</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Productos, precios, fotos, descartables y horario</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Mis pagos, Reportes y Calificaciones</span></li></ul></div>
+    <div class="fcol"><h3>Motorizados Pidemás</h3><small>Entregan por ti</small><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Asignación al motorizado más cercano y libre</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Pedido por pasos: cada etapa se abre y la anterior se pliega</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Recoge con código y entrega con el código del cliente (o foto)</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Ubicación por GPS en vivo y aviso de «estoy llegando»</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Cobra con tu QR, con el de Pidemás o en efectivo con vuelto calculado</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Compras: su caja se cuadra sola</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Sin señal: la entrega se guarda y se envía al volver el internet</span></li></ul></div>
+    <div class="fcol"><h3>Administración Pidemás</h3><small>Te respalda en cada pedido</small><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Controla todos los pedidos en vivo, también por pasos</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Alertas si un pedido se demora</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Por pagar a negocios y cobro de delivery, siempre claros</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Revisa los Yapes que llegan a Pidemás</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Reportes, ranking de motorizados e historial de cambios</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Lista negra de clientes que hacen pedidos falsos</span></li></ul></div>
   </div>
 </div></section>
 
@@ -501,6 +533,7 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
 <section class="sec faq"><div class="wrap" style="max-width:820px">
   <span class="kick">Preguntas frecuentes</span>
   <h2>Lo que nos preguntan los negocios</h2>
+  <details open><summary>¿Cuánto cuesta afiliarme?</summary><p>Nada. La afiliación es gratis y no cobramos comisiones por tus pedidos. Incluye tu ingreso a la app Pidemás para atender tus pedidos y tu tienda virtual para que tus clientes te pidan. El cliente paga el delivery de cada pedido.</p></details>
   <details><summary>¿Qué tipo de negocios pueden unirse?</summary><p>Restaurantes, pollerías, cevicherías, cafeterías, panaderías, bodegas, licorerías, farmacias, tiendas de ropa, calzado, tecnología y muchos rubros más de Piura. Cada rubro tiene su propia configuración.</p></details>
   <details><summary>¿Necesito tener motorizados?</summary><p>No. Pidemás asigna un motorizado a cada pedido. Tú solo preparas y entregas el pedido en tu local al motorizado, comparando su código de recojo.</p></details>
   <details><summary>¿Cómo cobro mis pedidos?</summary><p>Si el cliente paga en efectivo, el motorizado cobra todo y Pidemás te paga los productos. Si elige Yape, lo coordinas por WhatsApp (el mensaje ya lleva tu número y tu QR) y eliges cómo quedó: que pague todo al recibir con tu Yape (el motorizado muestra tu QR y tú confirmas que te llegó), que ya te pagó los productos y solo falte el delivery, o que ya te pagó todo. En «Mis pagos» ves siempre quién le debe a quién.</p></details>
@@ -512,9 +545,9 @@ footer{padding:28px 0 40px;color:var(--mu);font-size:13.5px;text-align:center}
 
 <section class="sec" id="unete"><div class="wrap">
   <div class="cta">
-    <div><span class="kick" style="color:#E9DED6">Únete a Pidemás</span><h2 style="margin-top:10px">Tu negocio puede estar recibiendo pedidos esta semana</h2><p>Llena el formulario de afiliación o escríbenos por WhatsApp y te ayudamos a armar tu carta.</p></div>
+    <div><span class="kick" style="color:#E9DED6">Únete a Pidemás</span><h2 style="margin-top:10px">Afíliate gratis y sin comisiones</h2><p>Incluye tu ingreso a la app Pidemás y tu tienda virtual. Llena el formulario o escríbenos por WhatsApp y te ayudamos a armar tu carta esta semana.</p></div>
     <div class="ctas">
-      <a class="btn pdAfiliar" href="https://pidemasdelivery.github.io/inscripcion/">Afiliar mi negocio</a>
+      <a class="btn pdAfiliar" href="https://pidemasdelivery.github.io/inscripcion/">Afiliarme gratis</a>
       <a class="btn wa" id="waCta" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/></svg>Escribir por WhatsApp</a>
     </div>
   </div>
