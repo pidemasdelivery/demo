@@ -82,7 +82,7 @@ h1,h2,h3{letter-spacing:-.02em;margin:0}
 .phone .scr{position:absolute;inset:0;overflow:hidden;transform:translateZ(0)}
 .phone.ring{animation:ring .5s ease-in-out 2}
 @keyframes ring{0%,100%{transform:none}25%{transform:rotate(-1.2deg)}75%{transform:rotate(1.2deg)}}
-@media(min-width:1180px){.roles{display:none}.stage{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}.col{display:flex!important}.phone{height:720px}}
+@media(min-width:960px){.dgrid{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:40px;align-items:start}.dgrid .ctrl{grid-template-columns:1fr}.dgrid .izq{position:sticky;top:90px}.phone{height:720px}}
 @media(max-width:480px){.demo .wrap{padding:0 12px}.phone{border-width:8px;border-radius:32px;height:78vh}}
 /* ---------- funciones ---------- */
 .grid{display:grid;gap:14px}
@@ -143,8 +143,8 @@ footer{padding:28px 0 40px;color:#6B5E55;font-size:14px;text-align:center}
 </div></section>
 
 <section class="demo" id="demo"><div class="wrap">
-  <div class="shead"><span class="kick">Demo en vivo</span><h2>Así se ve un pedido de principio a fin</h2><p>Elige el rubro de tu negocio y prueba: el cliente pide en tu tienda, tú lo atiendes en tu panel y el motorizado de Pidemás lo recoge y lo entrega. Los tres están conectados. Es una demostración: nada es real.</p></div>
-  <div class="ctrl">
+  <div class="shead"><span class="kick">Demo en vivo</span><h2>Así se ve un pedido de principio a fin</h2><p>Elige tu rubro y prueba: el cliente pide en tu tienda, tú lo aceptas y el motorizado de Pidemás lo entrega. Cambia de vista con las pestañas. Es una demostración simplificada.</p></div>
+  <div class="dgrid"><div class="izq"><div class="ctrl">
     <div class="box"><div class="boxT"><span class="n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v2a3 3 0 0 1-5.3 1.9A3 3 0 0 1 12 14a3 3 0 0 1-2.7-1.1A3 3 0 0 1 4 11z"/><path d="M5.5 13.5V20h13v-6.5"/></svg></span><span><b>Elige el rubro de tu negocio</b><small>Tu tienda y tu panel se llenan con productos de ese rubro.</small></span></div><div id="rubros"></div></div>
     <div class="box guide" aria-live="polite"><div class="boxT"><span class="n" id="gN">1</span><span><b id="gT"></b><small id="gS"></small></span></div><span class="rol" id="gRol"></span><div class="gBtns"><button type="button" class="btn sm" id="gVer">Ver dónde</button><button type="button" class="btn sm light" id="gAuto">Hazlo por mí</button></div></div>
   </div>
@@ -152,12 +152,12 @@ footer{padding:28px 0 40px;color:#6B5E55;font-size:14px;text-align:center}
     <button type="button" role="tab" data-rol="t" class="on">Tienda<span class="dot" hidden></span></button>
     <button type="button" role="tab" data-rol="p">Negocio<span class="dot" hidden></span></button>
     <button type="button" role="tab" data-rol="m">Motorizado<span class="dot" hidden></span></button>
-  </div>
+  </div></div>
   <div class="stage" id="stage" data-v="t">
     <div class="col" data-c="t"><span class="lb">Tu tienda virtual<small>Lo que ve el cliente</small></span><div class="phone" id="ph-t"><div class="scr" id="scr-t"></div></div></div>
     <div class="col" data-c="p"><span class="lb">Tu panel de negocio<small>Lo que ves tú</small></span><div class="phone" id="ph-p"><div class="scr" id="scr-p"></div></div></div>
     <div class="col" data-c="m"><span class="lb">App del motorizado<small>Pidemás entrega por ti</small></span><div class="phone" id="ph-m"><div class="scr" id="scr-m"></div></div></div>
-  </div>
+  </div></div>
 </div></section>
 
 <section class="sec" id="funciones"><div class="wrap">
@@ -1230,13 +1230,10 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
     const head=top(r.neg,'Tu pedido',back('tcarta'));
     if(!S.cart.length)return {head,body:'<div class="vac">Tu pedido está vacío. Agrega productos de la carta.</div><button type="button" class="b o" data-a="tcarta">Ver la carta</button>',modal:S.t.modal&&S.ord?modalEnviado():'',pag:'ped'};
     const t=S.t;let h=`<div class="cd"><div class="lbl">Productos</div>${S.cart.map((x,i)=>`<div class="it"><span class="tx"><b>${E(x.n)}</b><span>${x.o?E(x.o)+' · ':''}${M(x.p)} c/u</span></span><span class="qty s"><button type="button" data-tci="${i}:-1" aria-label="${x.q>1?'Quitar uno':'Quitar del pedido'}">${x.q>1?IC.minus:IC.trash}</button><b>${x.q}</b><button type="button" data-tci="${i}:1" aria-label="Agregar uno">${IC.plus}</button></span><b>${M(x.p*x.q)}</b></div>`).join('')}<button type="button" class="lnk" data-a="tcarta" style="text-decoration:none">+ Agregar más productos</button></div>`;
-    h+=`<div class="cd"><div class="lbl">Entrega</div><div class="fld"><label for="tdir">Dirección de entrega</label><input id="tdir" value="${E(t.dir)}" data-in="dir"></div><div class="fld"><label for="tref">Referencia</label><input id="tref" value="${E(t.ref)}" data-in="ref"></div><div class="loc on"><span class="i">${IC.check}</span><span class="tx"><b>Ubicación lista</b><span>El delivery se calcula con este punto del mapa.</span></span></div><div class="btns b2"><button type="button" class="b" data-a="tfake" data-msg="En la tienda real usa el GPS de tu celular.">${IC.gps}Mi ubicación</button><button type="button" class="b" data-a="tfake" data-msg="En la tienda real se abre el mapa para marcar el lugar.">${IC.map}Cambiar en mapa</button></div></div>`;
+    h+=`<div class="cd"><div class="lbl">Entrega</div><div class="fld"><label for="tdir">Dirección de entrega</label><input id="tdir" value="${E(t.dir)}" data-in="dir"></div><div class="fld"><label for="tref">Referencia</label><input id="tref" value="${E(t.ref)}" data-in="ref"></div></div>`;
     h+=`<div class="cd"><div class="lbl">Tus datos</div><div class="two"><div class="fld"><label for="tnom">Nombre</label><input id="tnom" value="${E(t.nom)}" data-in="nom"></div><div class="fld"><label for="ttel">Celular</label><input id="ttel" value="${E(t.tel)}" data-in="tel" inputmode="tel"></div></div><div class="fld"><label for="tnota">Nota para el pedido (opcional)</label><input id="tnota" value="${E(t.nota)}" data-in="nota" placeholder="Ej. Tocar el timbre"></div></div>`;
     h+=`<div class="cd"><div class="lbl">Pago</div><div class="pay"><button type="button" class="${t.pago==='efectivo'?'on':''}" data-tpago="efectivo">Efectivo</button><button type="button" class="${t.pago==='yape'?'on':''}" data-tpago="yape">Yape</button></div>`;
-    if(t.pago==='efectivo'){const v=Number(String(t.vuelto).replace(',','.'))||0;h+=`<div class="fld"><label for="tvu">¿Con cuánto pagas? (para tu vuelto)</label><input id="tvu" inputmode="decimal" value="${E(t.vuelto)}" data-in="vuelto" placeholder="Ej. 100"></div>${v>=totT()?`<div class="ln"><span>Tu vuelto</span><b>${M(v-totT())}</b></div>`:''}`}
-    else h+=`<div class="opts"><button type="button" class="opt${t.ymodo==='negocio'?' on':''}" data-tym="negocio"><b>Coordinar con el negocio</b><span>El negocio te escribe por WhatsApp para que le yapees.</span></button><button type="button" class="opt${t.ymodo==='moto'?' on':''}" data-tym="moto"><b>Al motorizado al recibir</b><span>No pagues ahora: el motorizado te muestra el QR del negocio en la puerta.</span></button></div>`;
-    h+=`</div><div class="cd"><div class="lbl">Comprobante (opcional)</div><div class="pay"><button type="button" class="${t.comp==='boleta'?'on':''}" data-tcomp="boleta">Boleta</button><button type="button" class="${t.comp==='factura'?'on':''}" data-tcomp="factura">Factura</button></div></div>`;
-    h+=`<div class="cd"><div class="lbl">Código de descuento</div><div style="display:flex;gap:8px"><div class="fld" style="flex:1 1 0%"><label for="tcup" style="position:absolute;width:1px;height:1px;overflow:hidden">Código</label><input id="tcup" value="${E(t.cupon)}" data-in="cupon" placeholder="Prueba: ${CUPON}" style="text-transform:uppercase"></div><button type="button" class="b" style="height:54px;padding:0 18px" data-a="tcupon">Aplicar</button></div>${t.cupOk?`<div class="msgok">Descuento aplicado: − ${M(desc())} en el delivery.</div>`:'<div class="hint">El descuento se aplica al delivery.</div>'}</div>`;
+    h+=`<div class="hint">${t.pago==='efectivo'?'Pagas en efectivo al recibir.':'Pagas con Yape al recibir.'}</div></div>`;
     h+=`<div class="cd"><div class="ln"><span>Productos</span><b>${M(subT())}</b></div><div class="ln"><span>Bolsa</span><b>${M(BOLSA)}</b></div><div class="ln"><span>Delivery · 2.1 km</span><b>${M(DEL)}</b></div>${desc()?`<div class="ln g"><span>Descuento</span><b>− ${M(desc())}</b></div>`:''}<div class="ln t"><span>Total a pagar</span><b>${M(totT())}</b></div></div>`;
     const foot=`<button type="button" class="cbar c" data-a="tenviar"${abT()?'':' disabled'}>${abT()?'Confirmar pedido · '+M(totT()):'El negocio no recibe pedidos ahora'}</button>`;
     const modal=S.t.modal?modalEnviado():'';
@@ -1251,7 +1248,7 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
     const tit=['Recibimos tu pedido','Están preparando tu pedido','Un motorizado va por tu pedido','Va en camino','Está llegando','Pedido entregado'][c];
     const head=`<div class="top"><div class="row">${back('tcarta')}<div class="ttl" style="flex:1 1 0%;min-width:0"><div class="kick">${E(o.code)} · ${E(r.neg)}</div><div class="h1" style="font-size:21px">${E(tit)}</div></div></div><div class="bar5" style="grid-template-columns:repeat(6,minmax(0,1fr))" role="img" aria-label="Paso ${c+1} de 6">${L.map((_,i)=>`<i class="${i<c||fin?'d':i===c?'c':''}"></i>`).join('')}</div><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px;color:#6B5E55;font-weight:600">Paso ${c+1} de 6${c===1&&o.prep?' · listo en unos '+o.prep+' min':''}</span>${fin?'':'<span class="vivo"><i></i>En vivo</span>'}</div></div>`;
     let h='';
-    if(!fin)h+=`<div class="cdg"><div class="cdk">Tu código de entrega</div><div class="cdn">${o.codE}</div><div class="cds">Dáselo al motorizado solo cuando tengas tu pedido en la mano.</div></div>`;
+    if(0&&!fin)h+=`<div class="cdg"><div class="cdk">Tu código de entrega</div><div class="cdn">${o.codE}</div><div class="cds">Dáselo al motorizado solo cuando tengas tu pedido en la mano.</div></div>`;
     if(o.t.asignado&&!fin)h+=`<div class="cd" style="flex-direction:row;align-items:center;gap:12px"><span class="ptile" style="width:46px;height:46px;border-radius:50%;background:#FFF4EC;color:#C4410C">${IC.moto}</span><span style="flex:1 1 0%;display:flex;flex-direction:column"><b>Carlos M.</b><span style="font-size:13px;color:#6B5E55">Tu motorizado · moto 4521-PA</span></span><button type="button" class="ib" data-a="tfake" data-msg="En la app real llamas al motorizado." aria-label="Llamar">${IC.phone}</button></div>`;
     if(o.t.asignado&&!fin)h+=`<div class="mapa" aria-hidden="true"><i></i><i></i><span class="pb2">${IC.home}</span><span class="pa">${IC.store}</span><span class="mt" style="${motoPos(o)}">${IC.moto}</span></div>`;
     h+=`<div class="cd"><div class="tln">${L.map((x,i)=>{const ok=i<c||fin,cu=i===c&&!fin;return `<div class="p${ok?' ok':cu?' cur':' no'}"><span class="d">${ok?IC.check:i+1}</span><span class="tx"><b>${E(x[0])}</b><span>${E(ok&&x[2]?hora(x[2]):cu?x[1]:'')}</span></span></div>`}).join('')}</div></div>`;
@@ -1269,7 +1266,7 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
     const r=R();
     if(!r)return {head:'',body:`<div class="vac2"><span class="ptile">${ICO.lista}</span><b>Tu panel de negocio</b><span>Cuando elijas un rubro, aquí verás tus pedidos y tus productos.</span></div>`};
     const o=S.ord,nuevo=o&&o.est==='nuevo';
-    const nav=`<nav class="nv" aria-label="Menú del negocio">${[['inicio','Inicio',IC.home],['pedidos','Pedidos',IC.box],['productos','Productos',IC.layers],['perfil','Perfil',IC.user]].map(x=>`<button type="button" data-pt="${x[0]}" class="${S.p.tab===x[0]&&!S.p.v?'on':''}"><span class="i">${x[2]}</span>${x[1]}${x[0]==='pedidos'&&nuevo?'<span class="bd" style="top:2px;right:calc(50% - 26px)">1</span>':''}</button>`).join('')}</nav>`;
+    const nav=`<nav class="nv" aria-label="Menú del negocio">${[['inicio','Inicio',IC.home],['pedidos','Pedidos',IC.box]].map(x=>`<button type="button" data-pt="${x[0]}" class="${S.p.tab===x[0]&&!S.p.v?'on':''}"><span class="i">${x[2]}</span>${x[1]}${x[0]==='pedidos'&&nuevo?'<span class="bd" style="top:2px;right:calc(50% - 26px)">1</span>':''}</button>`).join('')}</nav>`;
     if(S.p.v==='ped'&&o)return pPedido(r,o);
     if(S.p.v)return pHerr(r,S.p.v);
     if(S.p.tab==='productos')return {head:top('Tu carta','Productos'),body:pProductos(),nav,pag:'prod'};
@@ -1280,7 +1277,6 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
     let h=`<div class="cols2"><div class="kp"><span>Ventas de hoy</span><b>${M(S.ventas)}</b></div><div class="kp"><span>Entregados</span><b>${S.entregados}</b></div></div>`;
     if(pausado())h+=`<div class="bnr">Tu tienda está en pausa hasta las ${hora(S.pausa)}. <button type="button" class="lnk" data-a="preanudar">Reanudar ahora</button></div>`;
     h+=`<div class="lbl2">Pedidos de hoy</div>`+(o?pCard(o):'<div class="vac">Aún no hay pedidos. Cuando un cliente pida en tu tienda, suena aquí.</div>');
-    h+=`<div class="lbl2">Herramientas</div>`+herr();
     return {head,body:h,nav,pag:'ini'};
   }
   const EST={nuevo:['n','Nuevo'],prep:['w','Preparando'],listo:['w','Listo para recojo'],asignado:['w','Motorizado en camino'],local:['w','Motorizado en tu local'],camino:['on','En camino'],llegando:['on','Llegando'],cobro:['on','Cobrando'],entregado:['on','Entregado']};
@@ -1288,24 +1284,24 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
   function herr(){const ag=S.prods.filter(p=>!p.on).length,prom=S.cal.length?S.cal.reduce((a,c)=>a+c.n,0)/S.cal.length:0;
     const t=(k,ic,b,sm,on)=>`<button type="button" class="${on?'on':''}" data-pv="${k}"><span class="i">${ic}</span><span class="t"><b>${b}</b><small>${sm}</small></span></button>`;
     return `<div class="tool">${t('pausa',IC.pause,pausado()?'En pausa':'Pausar pedidos',pausado()?'Hasta '+hora(S.pausa):'Si estás saturado',pausado())+t('agot',IC.layers,'Agotados',ag?ag+' agotado'+(ag>1?'s':''):'Apaga un producto')+t('pagos',IC.wallet,'Mis pagos',S.entregados?'Ver cuentas':'Quién debe qué')+t('rep',IC.chart,'Reportes','Ventas y tiempos')+t('cal',IC.star,'Calificaciones',S.cal.length?'★ '+prom.toFixed(1)+' de 5':'Lo que opinan')+t('qr',IC.qr,'Mi Yape (QR)','Listo para cobrar')}</div>`}
-  const PA={yape_negocio:['Paga todo al recibir con mi Yape','El motorizado le muestra tu QR'],solo_delivery:['Me pagó los productos, falta el delivery','El motorizado cobra solo el delivery'],pagado:['Me pagó todo, yo pago el delivery','Tú yapeas el delivery a Pidemás']};
+  const PA={yape_simple:['Yape al recibir',''],yape_negocio:['Paga todo al recibir con mi Yape','El motorizado le muestra tu QR'],solo_delivery:['Me pagó los productos, falta el delivery','El motorizado cobra solo el delivery'],pagado:['Me pagó todo, yo pago el delivery','Tú yapeas el delivery a Pidemás']};
   function paso(i,cur,tit,res,body){const ok=i<cur,cu=i===cur,lock=i>cur;return `<div class="pso${ok?' ok':cu?' cur':' lock'}"><div class="ph2"><span class="n">${ok?IC.check:i+1}</span><span class="tx"><b>${tit}</b>${ok&&res?`<small>${res}</small>`:lock?'<small>Se abre en su momento</small>':''}</span></div>${cu?`<div class="pb">${body}</div>`:''}</div>`}
   function pPedido(r,o){
     const f={nuevo:0,prep:1,listo:2,asignado:2,local:2,camino:3,llegando:3,cobro:3,entregado:4}[o.est];
-    const items=`<div class="cd"><div class="lbl">Pedido</div>${o.items.map(x=>`<div class="ln"><span style="color:#1F1A17">${x.q} × ${E(x.n)}${x.o?' · '+E(x.o):''}</span><b>${M(x.p*x.q)}</b></div>`).join('')}<div class="ln"><span>Delivery y bolsa</span><b>${M(DEL+BOLSA-o.desc)}</b></div><div class="ln t"><span>Total</span><b>${M(o.total)}</b></div>${o.comp!=='ninguno'?`<div class="hint">El cliente pidió ${o.comp}.</div>`:''}</div>`;
+    const items=`<div class="cd"><div class="lbl">Pedido</div>${o.items.map(x=>`<div class="ln"><span style="color:#1F1A17">${x.q} × ${E(x.n)}${x.o?' · '+E(x.o):''}</span><b>${M(x.p*x.q)}</b></div>`).join('')}<div class="ln"><span>Delivery y bolsa</span><b>${M(DEL+BOLSA-o.desc)}</b></div><div class="ln t"><span>Total</span><b>${M(o.total)}</b></div></div>`;
     let b0=items;
-    if(o.pago==='yape'){b0+=`<div class="cd"><div class="lbl">1 · Coordina el pago</div><div class="hint">El cliente eligió Yape. El mensaje ya lleva tu número y tu QR.</div><button type="button" class="b g" data-a="pwa">${IC.wa}Coordinar por WhatsApp</button><div class="lbl" style="margin-top:4px">2 · ¿Cómo quedó el pago?</div><div class="opts">${Object.keys(PA).map(k=>`<button type="button" class="opt${S.p.pa===k?' on':''}" data-ppa="${k}"><b>${E(PA[k][0])}</b><span>${E(PA[k][1])}</span></button>`).join('')}</div></div>`}
+    if(0){b0+=`<div class="cd"><div class="lbl">1 · Coordina el pago</div><div class="hint">El cliente eligió Yape. El mensaje ya lleva tu número y tu QR.</div><button type="button" class="b g" data-a="pwa">${IC.wa}Coordinar por WhatsApp</button><div class="lbl" style="margin-top:4px">2 · ¿Cómo quedó el pago?</div><div class="opts">${Object.keys(PA).map(k=>`<button type="button" class="opt${S.p.pa===k?' on':''}" data-ppa="${k}"><b>${E(PA[k][0])}</b><span>${E(PA[k][1])}</span></button>`).join('')}</div></div>`}
     b0+=`<div class="cd"><div class="lbl">¿En cuánto tiempo estará listo?</div><div class="pay" style="grid-template-columns:repeat(3,minmax(0,1fr))">${[10,20,30].map(m=>`<button type="button" class="${S.p.prep===m?'on':''}" data-pprep="${m}">${m} min</button>`).join('')}</div></div><button type="button" class="b o" data-a="paceptar"${o.pago==='yape'&&!S.p.pa?' disabled':''}>${o.pago==='yape'&&!S.p.pa?'Primero elige cómo quedó el pago':'Aceptar pedido'}</button><button type="button" class="b" style="color:#B42318" data-a="prechazar">No puedo atenderlo</button>`;
-    const b1=`<div class="hint">El cliente ve «Están preparando tu pedido» y el tiempo que elegiste. Pidemás ya busca un motorizado.</div><button type="button" class="b o" data-a="plisto">Pedido listo para recojo</button>`;
+    const b1=`<div class="hint">El cliente ve «Están preparando tu pedido» y el tiempo que elegiste. </div><button type="button" class="b o" data-a="plisto">Pedido listo para recojo</button>`;
     let b2='';
     if(o.est==='listo')b2=`<div class="hint">Avisamos al motorizado más cercano y libre. Cuando llegue, te mostrará su código de recojo.</div><div class="vac" style="padding:16px">Esperando al motorizado…</div>`;
     else if(o.est==='asignado')b2=`<div class="cd" style="flex-direction:row;align-items:center;gap:12px"><span class="ptile" style="width:44px;height:44px;border-radius:50%;background:#FFF4EC;color:#C4410C">${IC.moto}</span><span style="flex:1 1 0%;display:flex;flex-direction:column"><b>Carlos M. va a tu local</b><span style="font-size:13px;color:#6B5E55">Llega en unos 5 min</span></span></div>`;
     else b2=`<div class="cd" style="align-items:center;text-align:center"><div class="lbl" style="margin:0">Código de recojo</div><div class="big4">${o.codR}</div><div class="hint">Compáralo con el que te muestra el motorizado. Entrega solo si coincide.</div></div><button type="button" class="b o" data-a="pentregar">El código coincide · entregué el pedido</button>`;
     let b3=`<div class="hint">${o.est==='cobro'?'El motorizado está cobrando y entregando.':'Carlos va camino donde el cliente.'}</div>`;
     if(o.est==='cobro'&&o.yapeEsp)b3=`<div class="cd" style="border:1.5px solid #C4410C"><b style="font-size:17px">¿Te llegó el Yape de ${M(o.cobra)}?</b><div class="hint">Revisa tu app de Yape. El motorizado espera tu respuesta.</div><div class="btns b2"><button type="button" class="b o" data-a="pyapesi">Sí, me llegó</button><button type="button" class="b" data-a="pyapeno">Todavía no</button></div></div>`;
-    const b4=`<div class="msgok">Pedido entregado ${o.t.entregado?'a las '+hora(o.t.entregado):''}. ${o.cal?'El cliente te calificó con '+o.cal+' ★.':''}</div><div class="hint">Mira «Mis pagos» para saber quién le debe a quién.</div><button type="button" class="b" data-pv="pagos">Ver Mis pagos</button>`;
+    const b4=`<div class="msgok">Pedido entregado ${o.t.entregado?'a las '+hora(o.t.entregado):''}. ${o.cal?'El cliente te calificó con '+o.cal+' ★.':''}</div>`;
     const pa=o.pago==='efectivo'?'Efectivo al recibir':S.p.pa?PA[S.p.pa][0]:'Yape';
-    const body=`<div class="pas">${paso(0,f,'Aceptar el pedido','Aceptado · listo en '+o.prep+' min · '+E(pa),b0)}${paso(1,f,'Preparar','Listo para recojo',b1)}${paso(2,f,'Entregar al motorizado','Entregado a Carlos con código',b2)}${paso(3,f,'En camino al cliente','Cobrado y entregado',b3)}${paso(4,f,'Entregado','',b4)}</div>`;
+    const body=`<div class="pas">${paso(0,f,'Aceptar el pedido','Aceptado · listo en '+o.prep+' min · '+E(pa),b0)}${paso(1,f,'Preparar','Listo para recojo',b1)}${paso(2,f,'Entregar al motorizado','Entregado al motorizado',b2)}${paso(3,f,'En camino al cliente','Cobrado y entregado',b3)}${paso(4,f,'Entregado','',b4)}</div>`;
     return {head:top(E(o.code)+' · '+(o.pago==='efectivo'?'Efectivo':'Yape'),EST[o.est][1],back('pcerrar')),body,pag:'ped'};
   }
   function pProductos(){return `<div class="hint">Apaga lo que se terminó: desaparece de tu tienda al instante. En la app real también cambias precios, fotos, opciones, stock y descartables.</div><div class="cd">${S.prods.map(p=>`<div class="it" style="align-items:center">${tile(p.ic).replace('class="ptile"','class="ptile" style="width:44px;height:44px;border-radius:12px;background:'+tono(p.ic)[0]+';color:'+tono(p.ic)[1]+'"')}<span class="tx"><b>${E(p.n)}</b><span>${E(p.cat)} · ${M(p.p)}</span></span><button type="button" class="sw${p.on?' on':''}" data-ptog="${p.id}" aria-pressed="${p.on}" style="width:auto"><i aria-hidden="true"></i><span style="position:absolute;width:1px;height:1px;overflow:hidden">${p.on?'Disponible':'Agotado'}</span></button></div>`).join('')}</div>`}
@@ -1325,11 +1321,11 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
     const r=R();const o=S.ord;
     if(!r)return {head:'',body:`<div class="vac2"><span class="ptile">${IC.moto}</span><b>App del motorizado</b><span>Aquí verás cómo el motorizado de Pidemás recoge y entrega tu pedido.</span></div>`};
     const nuevo=o&&o.est==='listo';
-    const nav=`<nav class="nv" aria-label="Menú del motorizado">${[['inicio','Inicio',IC.home],['caja','Caja',IC.cash]].map(x=>`<button type="button" data-mt="${x[0]}" class="${S.m.tab===x[0]&&!S.m.v?'on':''}"><span class="i">${x[2]}</span>${x[1]}${x[0]==='inicio'&&nuevo?'<span class="bd" style="top:2px;right:calc(50% - 26px)">1</span>':''}</button>`).join('')}</nav>`;
+    const nav='';const _nv=`<nav class="nv" aria-label="Menú del motorizado">${[['inicio','Inicio',IC.home],['caja','Caja',IC.cash]].map(x=>`<button type="button" data-mt="${x[0]}" class="${S.m.tab===x[0]&&!S.m.v?'on':''}"><span class="i">${x[2]}</span>${x[1]}${x[0]==='inicio'&&nuevo?'<span class="bd" style="top:2px;right:calc(50% - 26px)">1</span>':''}</button>`).join('')}</nav>`;
     if(S.m.v==='ped'&&o&&!['nuevo','prep'].includes(o.est))return mPedido(r,o);
     if(S.m.tab==='caja')return {head:top('Efectivo que llevas','Mi caja'),body:`<div class="amt"><div class="k">Saldo en caja</div><div class="n">${M(S.m.caja)}</div><div class="pill">Por entregar a Pidemás</div></div><div class="cd"><div class="lbl">Movimientos</div>${S.m.movs.length?S.m.movs.map(x=>`<div class="li"><span>${E(x[0])}</span><b>${M(x[1])}</b></div>`).join(''):'<div class="hint">Cuando cobres en efectivo, se suma solo aquí.</div>'}</div>`,nav,pag:'caja'};
     const head=`<div class="hd row"><span style="display:flex;flex-direction:column"><span style="font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#6B5E55">Motorizado Pidemás</span><b style="font-size:20px">Hola, Carlos</b></span><button type="button" class="swb${S.m.disp?' on':''}" data-a="mdisp"><i></i>${S.m.disp?'Disponible':'En descanso'}</button></div>`;
-    let h=`<div class="cols2"><div class="kp"><span>Caja</span><b>${M(S.m.caja)}</b></div><div class="kp"><span>Entregas hoy</span><b>${S.entregados}</b></div></div><div class="lbl2">Pedidos</div>`;
+    let h=`<div class="cols2"><div class="kp"><span>Estado</span><b>${S.m.disp?'Activo':'Descanso'}</b></div><div class="kp"><span>Entregas hoy</span><b>${S.entregados}</b></div></div><div class="lbl2">Pedidos</div>`;
     if(!o||['nuevo','prep'].includes(o.est))h+=`<div class="vac">${o?'El negocio está preparando un pedido. Te avisamos cuando esté listo para recoger.':'Sin pedidos por ahora. Te avisamos con sonido cuando te asignen uno.'}</div>`;
     else if(o.est==='entregado')h+=`<div class="ocard"><span class="r1"><b>${E(o.code)}</b><span class="tg on">Entregado</span></span><span class="r2">${E(r.neg)} → ${E(S.t.dir)}</span></div>`;
     else h+=`<button type="button" class="ocard${nuevo?' a':''}" data-a="mver"><span class="r1"><b>${nuevo?'Pedido nuevo para ti':E(o.code)}</b><b>${M(o.total)}</b></span><span class="r2">Recoge en ${E(r.neg)} · entrega en ${E(S.t.dir)}</span><span class="r1"><span class="tg ${nuevo?'n':'w'}">${nuevo?'Nuevo · 2.1 km':E(EST[o.est][1])}</span><span style="font-size:13px;color:#6B5E55">${o.pago==='efectivo'?'Cobra en efectivo':'Yape'}</span></span>${nuevo?'<span class="b o" style="height:44px">Ver y aceptar</span>':''}</button>`;
@@ -1337,18 +1333,18 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
   }
   function mPedido(r,o){
     const f={listo:0,asignado:1,local:1,camino:2,llegando:2,cobro:3,entregado:4}[o.est];
-    const b0=`<div class="mapa" aria-hidden="true"><i></i><i></i><span class="pb2">${IC.home}</span><span class="pa">${IC.store}</span><span class="mt" style="left:44%;top:70%">${IC.moto}</span></div><div class="cd"><div class="li"><span>Recoger en</span><b>${E(r.neg)}</b></div><div class="li"><span>Entregar en</span><b style="text-align:right">${E(S.t.dir)}</b></div><div class="li"><span>Cobro</span><b>${o.pago==='efectivo'?'Efectivo · '+M(o.total):'Yape'}</b></div><div class="li"><span>Ganas</span><b>${M(DEL-1)}</b></div></div><button type="button" class="b o" data-a="maceptar">Aceptar pedido</button>`;
-    const b1=o.est==='asignado'?`<div class="hint">Ve al local. Al llegar, avisa con el botón.</div><button type="button" class="b o" data-a="mlocal">Llegué al local</button>`:`<div class="cd" style="align-items:center;text-align:center"><div class="lbl" style="margin:0">Tu código de recojo</div><div class="big4">${o.codR}</div><div class="hint">Muéstraselo al negocio. Te entrega el pedido cuando lo compare.</div></div><div class="vac" style="padding:14px">Esperando que el negocio te entregue el pedido…</div>`;
+    const b0=`<div class="mapa" aria-hidden="true"><i></i><i></i><span class="pb2">${IC.home}</span><span class="pa">${IC.store}</span><span class="mt" style="left:44%;top:70%">${IC.moto}</span></div><div class="cd"><div class="li"><span>Recoger en</span><b>${E(r.neg)}</b></div><div class="li"><span>Entregar en</span><b style="text-align:right">${E(S.t.dir)}</b></div><div class="li"><span>Cobro</span><b>${o.pago==='efectivo'?'Efectivo · '+M(o.total):'Yape'}</b></div></div><button type="button" class="b o" data-a="maceptar">Aceptar pedido</button>`;
+    const b1=o.est==='asignado'?`<div class="hint">Ve al local y recoge el pedido.</div><button type="button" class="b o" data-a="mlocal">Recogí el pedido</button>`:`<div class="cd" style="align-items:center;text-align:center"><div class="lbl" style="margin:0">Tu código de recojo</div><div class="big4">${o.codR}</div><div class="hint">Muéstraselo al negocio. Te entrega el pedido cuando lo compare.</div></div><div class="vac" style="padding:14px">Esperando que el negocio te entregue el pedido…</div>`;
     const b2=o.est==='camino'?`<div class="cd"><div class="li"><span>Cliente</span><b>${E(S.t.nom)}</b></div><div class="li"><span>Dirección</span><b style="text-align:right">${E(S.t.dir)}</b></div><div class="li"><span>Referencia</span><b style="text-align:right">${E(S.t.ref)}</b></div></div><div class="btns b2"><button type="button" class="b" data-a="mfake" data-msg="En la app real llamas al cliente.">${IC.phone}Llamar</button><button type="button" class="b g" data-a="mfake" data-msg="En la app real abre WhatsApp con «Estoy llegando».">${IC.wa}WhatsApp</button></div><button type="button" class="b o" data-a="mllegue">Llegué donde el cliente</button>`:`<div class="hint">Avisamos al cliente que ya llegaste.</div><button type="button" class="b o" data-a="mcobrar">Cobrar y entregar</button>`;
     let b3='';const pa=o.pago==='efectivo'?'efectivo':S.p.pa||'yape_negocio';
-    if(pa==='efectivo'){const pg=Number(String(S.t.vuelto).replace(',','.'))||o.total;b3=`<div class="cd"><div class="li"><span>Cobra en efectivo</span><b style="font-size:20px">${M(o.total)}</b></div><div class="li"><span>El cliente paga con</span><b>${M(pg)}</b></div><div class="li"><span>Su vuelto</span><b style="color:#15803D">${M(Math.max(0,pg-o.total))}</b></div></div>`}
+    if(pa==='efectivo'||pa==='yape_simple'){b3=`<div class="cd"><div class="li"><span>${pa==='efectivo'?'Cobra en efectivo':'Cobra con Yape'}</span><b style="font-size:20px">${M(o.total)}</b></div></div>`}
     else if(pa==='yape_negocio')b3=o.yapeOk?`<div class="msgok">El negocio confirmó que le llegó el Yape.</div>`:`<div class="cd" style="align-items:center;text-align:center"><div class="lbl" style="margin:0">QR de ${E(r.neg)}</div><div class="qrb">${QR}</div><div class="hint">El cliente paga ${M(o.total)} a este QR. El negocio confirma y te llega al instante.</div></div>${o.yapeEsp?'<div class="vac" style="padding:14px">Esperando que el negocio confirme…</div>':'<button type="button" class="b o" data-a="myape">El cliente ya yapeó</button>'}`;
     else if(pa==='solo_delivery')b3=`<div class="cd"><div class="li"><span>Cobra solo el delivery</span><b style="font-size:20px">${M(DEL+BOLSA-o.desc)}</b></div></div>`;
     else b3=`<div class="msgok">El cliente ya pagó todo al negocio. No cobras nada.</div>`;
     const listoCobro=pa!=='yape_negocio'||o.yapeOk;
-    if(listoCobro)b3+=`<div class="lbl" style="margin-top:4px">Código del cliente</div><div class="hint">Pídele su código de entrega (lo ve en su app).</div><div class="pin4">${[0,1,2,3].map(i=>`<input inputmode="numeric" maxlength="1" aria-label="Dígito ${i+1}" value="${E(S.m.cod[i])}" data-in="mc${i}">`).join('')}</div><button type="button" class="b o" data-a="mentregar">Entregar pedido</button><button type="button" class="lnk" data-a="mcodigo" style="align-self:center">Usar el código del cliente (demo)</button>`;
-    const b4=`<div class="msgok">¡Entregado! ${pa==='efectivo'?M(o.total)+' se sumó a tu caja.':''}</div>`;
-    const body=`<div class="pas">${paso(0,f,'Aceptar','Aceptado',b0)}${paso(1,f,'Recoger en el local','Recogido con código '+o.codR,b1)}${paso(2,f,'Ir donde el cliente','Llegaste',b2)}${paso(3,f,'Cobrar y entregar','Entregado con el código del cliente',b3)}${paso(4,f,'Listo','',b4)}</div>`;
+    if(listoCobro)b3+=`<button type="button" class="b o" data-a="mentregar">Entregar pedido</button>`;
+    const b4=`<div class="msgok">¡Entregado!</div>`;
+    const body=`<div class="pas">${paso(0,f,'Aceptar','Aceptado',b0)}${paso(1,f,'Recoger en el local','Recogido',b1)}${paso(2,f,'Ir donde el cliente','Llegaste',b2)}${paso(3,f,'Cobrar y entregar','Entregado',b3)}${paso(4,f,'Listo','',b4)}</div>`;
     return {head:top(o.code+' · '+r.neg,EST[o.est][1],back('mcerrar')),body,pag:'mped'};
   }
 
@@ -1358,15 +1354,14 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
     const k=id+'|'+(opt||'');const x=S.cart.find(y=>y.k===k);if(x)x.q+=q;else S.cart.push({k,id,n:p.n,p:p.p,q,o:opt||''});aviso('t','Agregado a tu pedido');todo()}
   function enviar(){if(!S.cart.length)return;const t=S.t;
     if(!t.dir.trim()||!t.nom.trim()){aviso('t','Escribe tu dirección y tu nombre.',1);return}
-    if(t.pago==='efectivo'){const v=Number(String(t.vuelto).replace(',','.'));if(t.vuelto&&v<totT()){aviso('t','Ingresa un monto igual o mayor a '+M(totT()),1);return}}
-    S.ord={code:cod(),items:S.cart.map(x=>({n:x.n,p:x.p,q:x.q,o:x.o})),sub:subT(),desc:desc(),total:totT(),pago:t.pago,ymodo:t.ymodo,comp:t.comp,est:'nuevo',prep:0,codR:String(1000+Math.floor(Math.random()*9000)),codE:String(1000+Math.floor(Math.random()*9000)),t:{creado:Date.now()},t0:Date.now()};
-    S.cart=[];S.p.pa=t.pago==='yape'&&t.ymodo==='moto'?'yape_negocio':null;S.t.modal=true;S.m.cod=['','','',''];todo();sonar('p');avisoRol('p')}
+        S.ord={code:cod(),items:S.cart.map(x=>({n:x.n,p:x.p,q:x.q,o:x.o})),sub:subT(),desc:desc(),total:totT(),pago:t.pago,ymodo:t.ymodo,comp:t.comp,est:'nuevo',prep:0,codR:String(1000+Math.floor(Math.random()*9000)),codE:String(1000+Math.floor(Math.random()*9000)),t:{creado:Date.now()},t0:Date.now()};
+    S.cart=[];S.p.pa=t.pago==='yape'?'yape_simple':null;S.t.modal=true;S.m.cod=['','','',''];todo();sonar('p');avisoRol('p')}
   function avisoRol(k){aviso(k,k==='p'?'¡Pedido nuevo! Ábrelo y acéptalo.':k==='m'?'Pedido nuevo para recoger.':'Tu pedido avanzó.')}
   const A={
     aceptar(){const o=S.ord;if(!o||o.est!=='nuevo')return;if(o.pago==='yape'&&!S.p.pa)S.p.pa='yape_negocio';o.est='prep';o.prep=S.p.prep;o.t.aceptado=Date.now();aviso('p','Pedido aceptado. El cliente ya lo sabe.')},
     listo(){const o=S.ord;if(!o||o.est!=='prep')return;o.est='listo';sonar('m');aviso('p','Avisamos al motorizado.');avisoRol('m')},
     mAceptar(){const o=S.ord;if(!o||o.est!=='listo')return;o.est='asignado';o.t.asignado=Date.now();S.m.v='ped';aviso('m','Pedido aceptado. Ve al local.')},
-    mLocal(){const o=S.ord;if(!o||o.est!=='asignado')return;o.est='local';sonar('p');aviso('p','Llegó el motorizado. Compara su código.')},
+    mLocal(){const o=S.ord;if(!o||o.est!=='asignado')return;o.est='camino';o.t.recogido=Date.now();aviso('p','El motorizado recogió el pedido.')},
     pEntregar(){const o=S.ord;if(!o||o.est!=='local')return;o.est='camino';o.t.recogido=Date.now();aviso('m','Recogiste el pedido. Ve donde el cliente.')},
     mLlegue(){const o=S.ord;if(!o||o.est!=='camino')return;o.est='llegando';o.t.llegando=Date.now();aviso('t','¡Tu motorizado llegó!')},
     mCobrar(){const o=S.ord;if(!o||o.est!=='llegando')return;o.est='cobro'},
@@ -1374,7 +1369,7 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
     yapeSi(){const o=S.ord;if(!o)return;o.yapeEsp=false;o.yapeOk=true;aviso('m','El negocio confirmó el Yape.')},
     mCodigo(){S.m.cod=S.ord?S.ord.codE.split(''):S.m.cod},
     mEntregar(){const o=S.ord;if(!o||o.est!=='cobro')return;const pa=o.pago==='efectivo'?'efectivo':S.p.pa||'yape_negocio';if(pa==='yape_negocio'&&!o.yapeOk)return;
-      if(S.m.cod.join('')!==o.codE){aviso('m','El código no coincide. Pídeselo otra vez al cliente.',1);return}
+      
       o.est='entregado';o.t.entregado=Date.now();S.ventas+=o.sub;S.entregados++;S.tiempos.push(Math.round((Date.now()-o.t0)/1000));S.top=(o.items.slice().sort((a,b)=>b.q-a.q)[0]||{}).n;
       if(pa==='efectivo'){S.m.caja+=o.total;S.m.movs.unshift(['Cobro '+o.code,o.total]);S.cuentas.debe+=o.sub}
       else if(pa==='solo_delivery'){S.m.caja+=DEL+BOLSA-o.desc;S.m.movs.unshift(['Delivery '+o.code,DEL+BOLSA-o.desc])}
@@ -1394,7 +1389,7 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
     else if(k==='mCobrar'){S.m.v='ped';A.mCobrar()}
     else if(k==='mYape'){S.m.v='ped';A.mYape()}
     else if(k==='yapeSi'){S.p.v='ped';A.yapeSi()}
-    else if(k==='mEntregar'){S.m.v='ped';A.mCodigo();A.mEntregar()}
+    else if(k==='mEntregar'){S.m.v='ped';A.mEntregar()}
     else if(k==='calificar'){S.t.v='cal';S.t.est={n:5,m:5};calOk()}
     else if(k==='fin'){reset()}
     todo();irRol(paso_().rol)}
@@ -1449,19 +1444,19 @@ const QR='<svg width="100%" height="100%" viewBox="-2 -2 29 29" role="img" aria-
   /* ---------- guía: qué sigue y quién lo hace ---------- */
   function paso_(){const o=S.ord;
     if(!S.rubro)return {k:'rubro',rol:'t',n:1,t:'Elige el rubro de tu negocio',s:'Tu tienda, tu panel y la app del motorizado se llenan con productos de ese rubro.'};
-    if(!o)return S.cart.length?{k:'enviar',rol:'t',n:2,t:'Envía el pedido como cliente',s:'Abre «Ver tu pedido», elige cómo pagas (prueba Yape) y confirma.'}:{k:'agregar',rol:'t',n:1,t:'Haz un pedido como cliente',s:'En la tienda, toca + en los productos que quieras.'};
-    if(o.est==='nuevo')return {k:'aceptar',rol:'p',n:3,t:'¡Te llegó el pedido!',s:'En tu panel ábrelo'+(o.pago==='yape'?', coordina el Yape y elige cómo quedó el pago':'')+'. Elige el tiempo y acéptalo.'};
+    if(!o)return S.cart.length?{k:'enviar',rol:'t',n:2,t:'Envía el pedido como cliente',s:'Abre tu pedido, elige cómo pagas y confírmalo.'}:{k:'agregar',rol:'t',n:1,t:'Haz un pedido como cliente',s:'En la tienda, toca + en los productos que quieras.'};
+    if(o.est==='nuevo')return {k:'aceptar',rol:'p',n:3,t:'¡Te llegó el pedido!',s:'En tu panel ábrelo, elige el tiempo y acéptalo.'};
     if(o.est==='prep')return {k:'listo',rol:'p',n:4,t:'Prepáralo',s:'Cuando esté listo, toca «Pedido listo para recojo».'};
     if(o.est==='listo')return {k:'mAceptar',rol:'m',n:5,t:'Pidemás asigna un motorizado',s:'En la app del motorizado: acepta el pedido.'};
-    if(o.est==='asignado')return {k:'mLocal',rol:'m',n:5,t:'El motorizado va a tu local',s:'Toca «Llegué al local».'};
+    if(o.est==='asignado')return {k:'mLocal',rol:'m',n:5,t:'El motorizado recoge el pedido',s:'Toca «Recogí el pedido».'};
     if(o.est==='local')return {k:'pEntregar',rol:'p',n:6,t:'Compara el código de recojo',s:'Si coincide con el del motorizado, entrégale el pedido.'};
     if(o.est==='camino')return {k:'mLlegue',rol:'m',n:7,t:'Va en camino',s:'El cliente lo ve en vivo. Toca «Llegué donde el cliente».'};
     if(o.est==='llegando')return {k:'mCobrar',rol:'m',n:8,t:'Cobra y entrega',s:'Toca «Cobrar y entregar».'};
     if(o.est==='cobro'){const pa=o.pago==='efectivo'?'efectivo':S.p.pa||'yape_negocio';
       if(pa==='yape_negocio'&&!o.yapeOk)return o.yapeEsp?{k:'yapeSi',rol:'p',n:8,t:'¿Te llegó el Yape?',s:'El cliente pagó con tu QR. Confírmalo y el motorizado lo sabe al instante.'}:{k:'mYape',rol:'m',n:8,t:'El cliente paga con tu QR',s:'El motorizado muestra tu QR. Toca «El cliente ya yapeó».'};
-      return {k:'mEntregar',rol:'m',n:9,t:'Entrega con el código del cliente',s:'Escribe el código que el cliente ve en su seguimiento y toca «Entregar pedido».'}}
-    if(o.est==='entregado'&&!o.cal)return {k:'calificar',rol:'t',n:10,t:'¡Entregado! Califica como cliente',s:'Luego mira «Mis pagos», «Reportes» y «Calificaciones» en tu panel, y la caja del motorizado.'};
-    return {k:'fin',rol:'p',n:10,t:'¡Así funciona Pidemás!',s:'Revisa tus cuentas en el panel o haz otro pedido.'};
+      return {k:'mEntregar',rol:'m',n:9,t:'Entrega el pedido',s:'Toca «Entregar pedido».'}}
+    if(o.est==='entregado'&&!o.cal)return {k:'calificar',rol:'t',n:10,t:'¡Entregado! Califica como cliente',s:'El cliente califica su pedido.'};
+    return {k:'fin',rol:'p',n:10,t:'¡Así funciona Pidemás!',s:'Prueba otro rubro o haz otro pedido.'};
   }
   const ROL={t:'Tienda (cliente)',p:'Panel (negocio)',m:'Motorizado'};
   function guia(){const g=paso_();$('gN').textContent=g.k==='fin'?'✓':g.n;$('gT').textContent=g.t;$('gS').textContent=g.s;$('gRol').textContent='Lo hace: '+ROL[g.rol];$('gAuto').textContent=g.k==='fin'?'Hacer otro pedido':g.k==='rubro'?'Elegir uno por mí':'Hazlo por mí';
